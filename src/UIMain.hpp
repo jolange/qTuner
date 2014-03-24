@@ -1,8 +1,8 @@
 #ifndef UIMAIN_HPP_
 #define UIMAIN_HPP_
 
-
 //#include "ui_UIMain.h"
+
 #include "OutputDevice.hpp"
 #include <QMainWindow>
 
@@ -21,7 +21,6 @@ public:
    virtual ~UIMain();
 private:
    //Ui::UIMain ui;
-   
    QAudioFormat     m_audioFormat;
    QAudioDeviceInfo m_deviceInfo;
    QAudioInput*     m_audioInput;

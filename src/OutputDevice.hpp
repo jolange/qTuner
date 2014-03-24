@@ -8,9 +8,10 @@ namespace qTuner { class OutputDevice; }
 class qTuner::OutputDevice : public QIODevice
 {
 Q_OBJECT
+
 public:
    OutputDevice(const QAudioFormat &aFormat, QObject *parent);
-   ~OutputDevice();
+   virtual ~OutputDevice();
 
    void start();
    void stop();
@@ -20,6 +21,10 @@ public:
 
 private:
    const QAudioFormat m_audioFormat;
+   int                m_iSampleBytes;
+   int                m_iSamples;
+   
+   void fft(qint16 data[], int iSamples);
 
 };
 
