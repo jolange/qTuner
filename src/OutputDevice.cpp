@@ -50,11 +50,14 @@ qint64 OutputDevice::writeData(const char *data, qint64 len)
 
 void OutputDevice::fft(qint16 data[], double spectr[], int n)
 {
-   std::complex<double>* cData = new std::complex<double>[n];
+   std::complex<double>* cData = new std::complex<double>[2*n];
    for (int i=0; i<n; i++)
       cData[i] = std::complex<double>((double)data[i],0.0);
+   // add zeros for higher precision
+   for (int i=n; i<2*n; i++)
+      cData[i] = std::complex<double>(0.0,0.0);
    
-   fft(cData,n);
+   fft(cData,2*n);
    for (int i=0; i<n; i++)
       spectr[i] = std::abs<double>(cData[i]);
 
