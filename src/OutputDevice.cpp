@@ -37,20 +37,27 @@ qint64 OutputDevice::writeData(const char *data, qint64 len)
       values[i] = qFromLittleEndian<qint16>(ptr);
       ptr += m_iSampleBytes;
    }
-   dump(values, m_iSamples);
 
-   fft(values, m_iSamples);
+   double* spectrum = new double[m_iSamples];
+   fft(values, spectrum, m_iSamples);
+   qDebug() << "raw";  dump(values, m_iSamples);
+   qDebug() << "spec"; dump(spectrum,m_iSamples);
+   
+   delete[] spectrum;
    delete[] values;
    return len;
 }
 
-void OutputDevice::fft(qint16 data[], int n)
+void OutputDevice::fft(qint16 data[], double spectr[], int n)
 {
    std::complex<double>* cData = new std::complex<double>[n];
    for (int i=0; i<n; i++)
       cData[i] = std::complex<double>((double)data[i],0.0);
    
    fft(cData,n);
+   for (int i=0; i<n; i++)
+      spectr[i] = std::abs<double>(cData[i]);
+
    delete[] cData;
 }
 
@@ -90,4 +97,13 @@ void OutputDevice::dump(qint16 data[], int n)
    }
    qDebug() << output;
 }
+void OutputDevice::dump(double data[], int n)
+{
+   QString output;
+   for (int i = 0; i < n; i++) {
+      output += QString::number(data[i]) + " ";
+   }
+   qDebug() << output;
+}
+
 } // end namespace qTuner

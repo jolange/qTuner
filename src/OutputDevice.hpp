@@ -26,10 +26,11 @@ private:
    int                m_iSampleBytes;
    int                m_iSamples;
    
-   void fft(qint16               data[], int n);
+   void fft(qint16               data[], double spectr[], int n);
    void fft(std::complex<double> data[], int n);
    
    void dump(qint16 data[], int n);
+   void dump(double data[], int n);
 
 };
 
