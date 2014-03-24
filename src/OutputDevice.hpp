@@ -3,7 +3,9 @@
 
 #include <QAudioInput>
 
-class OutputDevice : public QIODevice
+namespace qTuner { class OutputDevice; }
+
+class qTuner::OutputDevice : public QIODevice
 {
 Q_OBJECT
 public:

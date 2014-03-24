@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QtEndian>
 
-
+namespace qTuner{
 
 OutputDevice::OutputDevice(const QAudioFormat &aFormat, QObject *parent):
    QIODevice(parent),
@@ -38,3 +38,4 @@ qint64 OutputDevice::writeData(const char *data, qint64 len)
    return len;
 }
 
+} // end namespace qTuner
