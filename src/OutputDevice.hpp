@@ -1,6 +1,8 @@
 #ifndef OUTPUTDEVICE_HPP_
 #define OUTPUTDEVICE_HPP_
 
+#include <complex>
+
 #include <QAudioInput>
 
 namespace qTuner { class OutputDevice; }
@@ -24,7 +26,10 @@ private:
    int                m_iSampleBytes;
    int                m_iSamples;
    
-   void fft(qint16 data[], int iSamples);
+   void fft(qint16               data[], int n);
+   void fft(std::complex<double> data[], int n);
+   
+   void dump(qint16 data[], int n);
 
 };
 
