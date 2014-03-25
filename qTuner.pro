@@ -21,8 +21,8 @@ INCLUDEPATH +=
 # Input
 FORMS     += 
 HEADERS   += src/UIMain.hpp        \
-             src/OutputDevice.hpp
+             src/FFTDevice.hpp
 SOURCES   += src/main.cpp          \
              src/UIMain.cpp        \
-             src/OutputDevice.cpp
+             src/FFTDevice.cpp
 RESOURCES += 

@@ -3,7 +3,7 @@
 
 //#include "ui_UIMain.h"
 
-#include "OutputDevice.hpp"
+#include "FFTDevice.hpp"
 #include <QMainWindow>
 
 namespace qTuner { class UIMain; }
@@ -24,7 +24,7 @@ private:
    QAudioFormat     m_audioFormat;
    QAudioDeviceInfo m_deviceInfo;
    QAudioInput*     m_audioInput;
-   OutputDevice*    m_outputDevice;
+   FFTDevice*       m_FFTDevice;
    
 };
 #endif // UIMAIN_HPP_

@@ -1,4 +1,4 @@
-#include "OutputDevice.hpp"
+#include "FFTDevice.hpp"
 
 #include <complex>
 #include <cmath>
@@ -8,7 +8,7 @@
 
 namespace qTuner{
 
-OutputDevice::OutputDevice(const QAudioFormat &aFormat, QObject *parent):
+FFTDevice::FFTDevice(const QAudioFormat &aFormat, QObject *parent):
    QIODevice(parent),
    m_audioFormat(aFormat),
    m_iFrequencyResolution(4)
@@ -16,19 +16,19 @@ OutputDevice::OutputDevice(const QAudioFormat &aFormat, QObject *parent):
    m_iSampleBytes = m_audioFormat.sampleSize() / 8;
 }
 
-OutputDevice::~OutputDevice(){}
+FFTDevice::~FFTDevice(){}
 
-void OutputDevice::start() { open(QIODevice::WriteOnly); }
-void OutputDevice::stop()  { close(); }
+void FFTDevice::start() { open(QIODevice::WriteOnly); }
+void FFTDevice::stop()  { close(); }
 
-qint64 OutputDevice::readData(char *data, qint64 maxlen)
+qint64 FFTDevice::readData(char *data, qint64 maxlen)
 {
    Q_UNUSED(data)
    Q_UNUSED(maxlen)
    return 0;
 }
 
-qint64 OutputDevice::writeData(const char *data, qint64 len)
+qint64 FFTDevice::writeData(const char *data, qint64 len)
 {
    m_iSamples = len / m_iSampleBytes;
 
@@ -50,7 +50,7 @@ qint64 OutputDevice::writeData(const char *data, qint64 len)
    return len;
 }
 
-void OutputDevice::fft(qint16 data[], double spectr[], int n)
+void FFTDevice::fft(qint16 data[], double spectr[], int n)
 {
    std::complex<double>* cData = new std::complex<double>[m_iFrequencyResolution*n];
    for (int i=0; i<n; i++)
@@ -66,7 +66,7 @@ void OutputDevice::fft(qint16 data[], double spectr[], int n)
    delete[] cData;
 }
 
-void OutputDevice::fft(std::complex<double> data[], int n)
+void FFTDevice::fft(std::complex<double> data[], int n)
 {
    if (n == 1)
       return;
@@ -94,7 +94,7 @@ void OutputDevice::fft(std::complex<double> data[], int n)
 }
 
 
-void OutputDevice::dump(qint16 data[], int n)
+void FFTDevice::dump(qint16 data[], int n)
 {
    QString output;
    for (int i = 0; i < n; i++) {
@@ -102,7 +102,7 @@ void OutputDevice::dump(qint16 data[], int n)
    }
    qDebug() << output;
 }
-void OutputDevice::dump(double data[], int n)
+void FFTDevice::dump(double data[], int n)
 {
    QString output;
    for (int i = 0; i < n; i++) {
@@ -111,7 +111,7 @@ void OutputDevice::dump(double data[], int n)
    qDebug() << output;
 }
 
-int OutputDevice::maxPosition(double data[], int n)
+int FFTDevice::maxPosition(double data[], int n)
 {
    int iMax = 0;
    for (int i=0; i<n; i++){
@@ -120,7 +120,8 @@ int OutputDevice::maxPosition(double data[], int n)
    }
    return iMax;
 }
-double OutputDevice::frequencyAt(int pos)
+
+double FFTDevice::frequencyAt(int pos)
 {
    return (pos + 1.0) * (double)m_audioFormat.sampleRate() / (double)m_iSamples / (double)m_iFrequencyResolution;
 }

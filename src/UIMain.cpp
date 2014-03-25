@@ -7,13 +7,11 @@
 
 namespace qTuner{
 
-
-
 UIMain::UIMain():
    QMainWindow(),
    m_deviceInfo(QAudioDeviceInfo::defaultInputDevice()),
    m_audioInput(0),
-   m_outputDevice(0)
+   m_FFTDevice(0)
 {
    //ui.setupUi(this);
 
@@ -24,15 +22,15 @@ UIMain::UIMain():
    m_audioFormat.setByteOrder(QAudioFormat::LittleEndian);
    m_audioFormat.setCodec("audio/pcm");
 
-   m_outputDevice  = new OutputDevice(m_audioFormat, this);
-   m_audioInput    = new QAudioInput(m_deviceInfo, m_audioFormat, this);
-   m_outputDevice->start();
-   m_audioInput  ->start(m_outputDevice);
+   m_FFTDevice  = new FFTDevice(m_audioFormat, this);
+   m_audioInput = new QAudioInput(m_deviceInfo, m_audioFormat, this);
+   m_FFTDevice ->start();
+   m_audioInput->start(m_FFTDevice);
 }
 
 UIMain::~UIMain()
 {
-   delete m_outputDevice;
+   delete m_FFTDevice;
    delete m_audioInput;
 }
 

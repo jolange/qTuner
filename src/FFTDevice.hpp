@@ -1,19 +1,19 @@
-#ifndef OUTPUTDEVICE_HPP_
-#define OUTPUTDEVICE_HPP_
+#ifndef FFTDEVICE_HPP_
+#define FFTDEVICE_HPP_
 
 #include <complex>
 
 #include <QAudioInput>
 
-namespace qTuner { class OutputDevice; }
+namespace qTuner { class FFTDevice; }
 
-class qTuner::OutputDevice : public QIODevice
+class qTuner::FFTDevice : public QIODevice
 {
 Q_OBJECT
 
 public:
-   OutputDevice(const QAudioFormat &aFormat, QObject *parent);
-   virtual ~OutputDevice();
+   FFTDevice(const QAudioFormat &aFormat, QObject *parent);
+   virtual ~FFTDevice();
 
    void start();
    void stop();
@@ -37,4 +37,4 @@ private:
 
 };
 
-#endif /* OUTPUTDEVICE_HPP_ */ 
+#endif /* FFTDEVICE_HPP_ */ 
