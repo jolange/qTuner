@@ -11,7 +11,7 @@ namespace qTuner{
 FFTDevice::FFTDevice(const QAudioFormat &aFormat, QObject *parent):
    QIODevice(parent),
    m_audioFormat(aFormat),
-   m_iFrequencyResolution(4)
+   m_iResolutionFactor(20)
 {
    m_iSampleBytes = m_audioFormat.sampleSize() / 8;
 }
@@ -40,7 +40,7 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
    }
 
    double* spectrum = new double[m_iSamples];
-   fft(values, spectrum, m_iSamples);
+   fft(values, spectrum);
    //qDebug() << "raw";  dump(values, m_iSamples);
    //qDebug() << "spec"; dump(spectrum,m_iSamples);
    qDebug() << frequencyAt(maxPosition(spectrum, m_iSamples));
@@ -50,17 +50,25 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
    return len;
 }
 
-void FFTDevice::fft(qint16 data[], double spectr[], int n)
+void FFTDevice::fft(qint16 data[], double spectr[])
 {
-   std::complex<double>* cData = new std::complex<double>[m_iFrequencyResolution*n];
-   for (int i=0; i<n; i++)
+   // make sure that m_iFFTsize = 2^N
+   // and fill with zeros for higher precision
+   m_iFFTsize = m_iResolutionFactor*m_iSamples;
+   int N  = log2(m_iFFTsize);
+   m_iFFTsize = pow(2,N+1);
+
+   // create complex values for fft
+   std::complex<double>* cData = new std::complex<double>[m_iFFTsize];
+   for (int i=0; i<m_iSamples; i++)
       cData[i] = std::complex<double>((double)data[i],0.0);
-   // add zeros for higher precision
-   for (int i=n; i<m_iFrequencyResolution*n; i++)
+   // add zeros
+   for (int i=m_iSamples; i<m_iFFTsize; i++)
       cData[i] = std::complex<double>(0.0,0.0);
    
-   fft(cData,m_iFrequencyResolution*n);
-   for (int i=0; i<n; i++)
+   fft(cData,m_iFFTsize);
+   // put back only first n values
+   for (int i=0; i<m_iSamples; i++)
       spectr[i] = std::abs<double>(cData[i]);
 
    delete[] cData;
@@ -102,6 +110,7 @@ void FFTDevice::dump(qint16 data[], int n)
    }
    qDebug() << output;
 }
+
 void FFTDevice::dump(double data[], int n)
 {
    QString output;
@@ -123,7 +132,17 @@ int FFTDevice::maxPosition(double data[], int n)
 
 double FFTDevice::frequencyAt(int pos)
 {
-   return (pos + 1.0) * (double)m_audioFormat.sampleRate() / (double)m_iSamples / (double)m_iFrequencyResolution;
+   return pos * (double)m_audioFormat.sampleRate() / (double)m_iFFTsize;
+}
+
+void FFTDevice::setResolutionFactor(int res)
+{
+   if (res <= 1)
+      res = 1;
+   else if (res >= 20)
+      res = 20;
+   
+   m_iResolutionFactor = res;
 }
 
 } // end namespace qTuner

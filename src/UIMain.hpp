@@ -25,6 +25,5 @@ private:
    QAudioDeviceInfo m_deviceInfo;
    QAudioInput*     m_audioInput;
    FFTDevice*       m_FFTDevice;
-   
 };
 #endif // UIMAIN_HPP_
