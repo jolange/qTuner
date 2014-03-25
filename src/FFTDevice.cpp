@@ -11,7 +11,8 @@ namespace qTuner{
 FFTDevice::FFTDevice(const QAudioFormat &aFormat, QObject *parent):
    QIODevice(parent),
    m_audioFormat(aFormat),
-   m_iResolutionFactor(20)
+   m_iResolutionFactor(20),
+   A440(440.0) // Hz
 {
    m_iSampleBytes = m_audioFormat.sampleSize() / 8;
 }
@@ -43,7 +44,9 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
    fft(values, spectrum);
    //qDebug() << "raw";  dump(values, m_iSamples);
    //qDebug() << "spec"; dump(spectrum,m_iSamples);
-   qDebug() << frequencyAt(maxPosition(spectrum, m_iSamples));
+   double f = frequencyAt(maxPosition(spectrum, m_iSamples));
+   //qDebug() <<  (int)semitone(f) << f;
+   semitoneSymbol(semitone(f));
    
    delete[] spectrum;
    delete[] values;
@@ -145,4 +148,44 @@ void FFTDevice::setResolutionFactor(int res)
    m_iResolutionFactor = res;
 }
 
+// relative to A440
+double FFTDevice::semitone(double freq)
+{
+   // f = 2^(n/12) * 440Hz
+   return 12.0 * log2(freq/A440);
+}
+
+QString FFTDevice::semitoneSymbol(double semitone)
+{
+   QString symbol;
+   
+   // remainder is in [0.0,1.0)
+   double remainder = fmod(fmod(semitone, 1.0)+1.0,1.0); // unsigned modulo
+   //qDebug() << remainder;
+   // round up
+   if (remainder >= 0.5)
+      semitone += 1.0;
+   
+   // perform unsigned modulo with right rounding now
+   SemiToneSymbol sym = (SemiToneSymbol)(((int)semitone % 12 + 12) % 12);
+ 
+   switch (sym){
+      case A : symbol = "A" ; break;
+      case Bb: symbol = "Bb"; break;
+      case B : symbol = "B" ; break;
+      case C : symbol = "C" ; break;
+      case Db: symbol = "Db"; break;
+      case D : symbol = "D" ; break;
+      case Eb: symbol = "Eb"; break;
+      case E : symbol = "E" ; break;
+      case F : symbol = "F" ; break;
+      case Gb: symbol = "Gb"; break;
+      case G : symbol = "G" ; break;
+      case Ab: symbol = "Ab"; break;
+      default: symbol = "?" ; break;
+   }
+   qDebug() << symbol << remainder;
+   return symbol;
+}
+   
 } // end namespace qTuner

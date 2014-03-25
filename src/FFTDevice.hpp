@@ -5,7 +5,12 @@
 
 #include <QAudioInput>
 
-namespace qTuner { class FFTDevice; }
+namespace qTuner
+{
+   class FFTDevice; 
+   enum  SemiToneSymbol {A=0, Bb=1, B=2, C=3, Db=4, D=5, Eb=6,
+                         E=7, F=8, Gb=9, G=10, Ab=11};
+}
 
 class qTuner::FFTDevice : public QIODevice
 {
@@ -30,10 +35,14 @@ private:
    int                m_iResolutionFactor;
    int                m_iFFTsize; // legth of the array the FFT is performed on
    
+   const double A440; // Hz
+   
    void fft(qint16               data[], double spectr[]);
    void fft(std::complex<double> data[], int n);
    int  maxPosition(double       data[], int n);
    double frequencyAt(int pos);
+   double  semitone(double freq);
+   QString semitoneSymbol(double semitone);
    
    void dump(qint16 data[], int n);
    void dump(double data[], int n);
