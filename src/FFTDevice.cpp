@@ -40,12 +40,14 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
       ptr += m_iSampleBytes;
    }
 
-   double* spectrum = new double[m_iSamples];
+   calcSpectrumSize();
+   double* spectrum = new double[m_iSpectrumSize];
    fft(values, spectrum);
    //qDebug() << "raw";  dump(values, m_iSamples);
    //qDebug() << "spec"; dump(spectrum,m_iSamples);
    double f = frequencyAt(maxPosition(spectrum, m_iSamples));
    //qDebug() <<  (int)semitone(f) << f;
+   qDebug() << f;
    semitoneSymbol(semitone(f));
    
    delete[] spectrum;
@@ -55,23 +57,19 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
 
 void FFTDevice::fft(qint16 data[], double spectr[])
 {
-   // make sure that m_iFFTsize = 2^N
-   // and fill with zeros for higher precision
-   m_iFFTsize = m_iResolutionFactor*m_iSamples;
-   int N  = log2(m_iFFTsize);
-   m_iFFTsize = pow(2,N+1);
 
    // create complex values for fft
-   std::complex<double>* cData = new std::complex<double>[m_iFFTsize];
+   // and fill with zeros for higher precision
+   std::complex<double>* cData = new std::complex<double>[m_iSpectrumSize];
    for (int i=0; i<m_iSamples; i++)
       cData[i] = std::complex<double>((double)data[i],0.0);
    // add zeros
-   for (int i=m_iSamples; i<m_iFFTsize; i++)
+   for (int i=m_iSamples; i<m_iSpectrumSize; i++)
       cData[i] = std::complex<double>(0.0,0.0);
    
-   fft(cData,m_iFFTsize);
+   fft(cData,m_iSpectrumSize);
    // put back only first n values
-   for (int i=0; i<m_iSamples; i++)
+   for (int i=0; i<m_iSpectrumSize; i++)
       spectr[i] = std::abs<double>(cData[i]);
 
    delete[] cData;
@@ -104,6 +102,13 @@ void FFTDevice::fft(std::complex<double> data[], int n)
    delete[] ue;
 }
 
+void FFTDevice::calcSpectrumSize()
+{
+   // make sure that m_iSpectrumSize = 2^N
+   m_iSpectrumSize = m_iResolutionFactor*m_iSamples;
+   int N  = log2(m_iSpectrumSize);
+   m_iSpectrumSize = pow(2,N+1);
+}
 
 void FFTDevice::dump(qint16 data[], int n)
 {
@@ -135,7 +140,7 @@ int FFTDevice::maxPosition(double data[], int n)
 
 double FFTDevice::frequencyAt(int pos)
 {
-   return pos * (double)m_audioFormat.sampleRate() / (double)m_iFFTsize;
+   return pos * (double)m_audioFormat.sampleRate() / (double)m_iSpectrumSize;
 }
 
 void FFTDevice::setResolutionFactor(int res)

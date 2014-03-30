@@ -33,14 +33,15 @@ private:
    int                m_iSampleBytes;
    int                m_iSamples;
    int                m_iResolutionFactor;
-   int                m_iFFTsize; // legth of the array the FFT is performed on
+   int                m_iSpectrumSize; // legth of the array the FFT is performed on
    
    const double A440; // Hz
    
    void fft(qint16               data[], double spectr[]);
    void fft(std::complex<double> data[], int n);
+   void calcSpectrumSize();
    int  maxPosition(double       data[], int n);
-   double frequencyAt(int pos);
+   double  frequencyAt(int pos);
    double  semitone(double freq);
    QString semitoneSymbol(double semitone);
    

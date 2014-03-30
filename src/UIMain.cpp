@@ -15,7 +15,7 @@ UIMain::UIMain():
 {
    //ui.setupUi(this);
 
-   m_audioFormat.setSampleRate(16000);
+   m_audioFormat.setSampleRate(32000);
    m_audioFormat.setChannels(1);
    m_audioFormat.setSampleSize(16);
    m_audioFormat.setSampleType(QAudioFormat::SignedInt);
