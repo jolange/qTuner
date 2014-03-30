@@ -1,12 +1,23 @@
 #include "FFTDevice.hpp"
 
-#include <complex>
-#include <cmath>
+#include <iostream>
 
 #include <QDebug>
 #include <QtEndian>
 
 namespace qTuner{
+	
+// lack of Windows math functions
+#ifdef _WIN32
+double log2( double n )
+{
+    return log(n) / log(2.);
+}
+double round(double d)
+{
+  return floor(d + 0.5);
+}
+#endif // _WIN32
 
 FFTDevice::FFTDevice(const QAudioFormat &aFormat, QObject *parent):
    QIODevice(parent),
@@ -107,7 +118,7 @@ void FFTDevice::calcSpectrumSize()
    // make sure that m_iSpectrumSize = 2^N
    m_iSpectrumSize = m_iResolutionFactor*m_iSamples;
    int N  = log2(m_iSpectrumSize);
-   m_iSpectrumSize = pow(2,N+1);
+   m_iSpectrumSize = pow((double)2,(double)N+1);
 }
 
 void FFTDevice::dump(qint16 data[], int n)

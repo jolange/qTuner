@@ -1,6 +1,10 @@
 #ifndef FFTDEVICE_HPP_
 #define FFTDEVICE_HPP_
 
+// do this before any other math include,
+// because in Windows this is disabled by default
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <complex>
 
 #include <QAudioInput>
