@@ -2,7 +2,14 @@
 
 namespace qTuner{
 
-NoteInfo::NoteInfo(){}
+NoteInfo::NoteInfo():
+   QObject()
+{}
+NoteInfo::NoteInfo(const NoteInfo& other):
+   QObject(),
+   m_symbol(other.m_symbol),
+   m_remainder(other.m_remainder)
+{}
 NoteInfo::~NoteInfo(){};
 
 

@@ -1,6 +1,8 @@
 #ifndef FFTDEVICE_HPP_
 #define FFTDEVICE_HPP_
 
+#include "NoteInfo.hpp"
+
 // do this before any other math include,
 // because in Windows this is disabled by default
 #define _USE_MATH_DEFINES
@@ -12,8 +14,6 @@
 namespace qTuner
 {
    class FFTDevice; 
-   enum  SemiToneSymbol {A=0, Bb=1, B=2, C=3, Db=4, D=5, Eb=6,
-                         E=7, F=8, Gb=9, G=10, Ab=11};
 }
 
 class qTuner::FFTDevice : public QIODevice
@@ -31,13 +31,14 @@ public:
    qint64 writeData(const char *data, qint64 len);
    
    void setResolutionFactor(int res); // res \in [1,20]
-
+   
 private:
    const QAudioFormat m_audioFormat;
    int                m_iSampleBytes;
    int                m_iSamples;
    int                m_iResolutionFactor;
    int                m_iSpectrumSize; // legth of the array the FFT is performed on
+   NoteInfo           m_note;
    
    const double A440; // Hz
    
@@ -51,6 +52,9 @@ private:
    
    void dump(qint16 data[], int n);
    void dump(double data[], int n);
+   
+signals:
+   void signalNoteUpdated(NoteInfo);
 };
 
 #endif /* FFTDEVICE_HPP_ */ 

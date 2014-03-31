@@ -16,6 +16,7 @@ Q_OBJECT
 
 public:
    NoteInfo();
+   NoteInfo(const NoteInfo& other);
    virtual ~NoteInfo();
    
    SemiToneSymbol getSymbol();

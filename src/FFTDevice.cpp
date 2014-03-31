@@ -6,16 +6,16 @@
 #include <QtEndian>
 
 namespace qTuner{
-	
+
 // lack of Windows math functions
 #ifdef _WIN32
-double log2( double n )
+double log2(double d)
 {
-    return log(n) / log(2.);
+   return log(d)/log(2.);
 }
 double round(double d)
 {
-  return floor(d + 0.5);
+   return floor(d + 0.5);
 }
 #endif // _WIN32
 
@@ -60,6 +60,7 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
    //qDebug() <<  semitone(f) << f;
    //qDebug() << f;
    semitoneSymbol(semitone(f));
+   emit signalNoteUpdated(m_note);
    
    delete[] spectrum;
    delete[] values;
@@ -181,22 +182,10 @@ QString FFTDevice::semitoneSymbol(double semitone)
    // perform unsigned modulo with right rounding now
    SemiToneSymbol sym = (SemiToneSymbol)((st % 12 + 12) % 12);
 
-   switch (sym){
-      case A : symbol = "A" ; break;
-      case Bb: symbol = "Bb"; break;
-      case B : symbol = "B" ; break;
-      case C : symbol = "C" ; break;
-      case Db: symbol = "Db"; break;
-      case D : symbol = "D" ; break;
-      case Eb: symbol = "Eb"; break;
-      case E : symbol = "E" ; break;
-      case F : symbol = "F" ; break;
-      case Gb: symbol = "Gb"; break;
-      case G : symbol = "G" ; break;
-      case Ab: symbol = "Ab"; break;
-      default: symbol = "?" ; break;
-   }
-   qDebug() << symbol << remainder;
+   m_note.setSymbol(sym);
+   m_note.setRemainder(remainder);
+   symbol = m_note.getSymbolString();
+   //qDebug() << symbol << remainder;
    return symbol;
 }
    

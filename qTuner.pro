@@ -19,10 +19,12 @@ DEPENDPATH += src
 INCLUDEPATH +=
 
 # Input
-FORMS     += 
+FORMS     += src/UIMain.ui
 HEADERS   += src/UIMain.hpp        \
-             src/FFTDevice.hpp
+             src/FFTDevice.hpp     \
+             src/NoteInfo.hpp
 SOURCES   += src/main.cpp          \
              src/UIMain.cpp        \
-             src/FFTDevice.cpp
+             src/FFTDevice.cpp     \
+             src/NoteInfo.cpp
 RESOURCES += 

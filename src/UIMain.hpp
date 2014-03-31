@@ -1,7 +1,7 @@
 #ifndef UIMAIN_HPP_
 #define UIMAIN_HPP_
 
-//#include "ui_UIMain.h"
+#include "ui_UIMain.h"
 
 #include "FFTDevice.hpp"
 #include <QMainWindow>
@@ -20,10 +20,12 @@ public:
    UIMain();
    virtual ~UIMain();
 private:
-   //Ui::UIMain ui;
+   Ui::UIMain ui;
    QAudioFormat     m_audioFormat;
    QAudioDeviceInfo m_deviceInfo;
    QAudioInput*     m_audioInput;
    FFTDevice*       m_FFTDevice;
+private slots:
+   void slotUpdateNoteInfo(NoteInfo note);
 };
 #endif // UIMAIN_HPP_
