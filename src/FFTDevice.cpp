@@ -59,7 +59,7 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
    double f = frequencyAt(maxPosition(spectrum, m_iSamples));
    //qDebug() <<  semitone(f) << f;
    //qDebug() << f;
-   semitoneSymbol(semitone(f));
+   updateNote(semitone(f));
    emit signalNoteUpdated(m_note);
    
    delete[] spectrum;
@@ -172,21 +172,15 @@ double FFTDevice::semitone(double freq)
    return 12.0 * log2(freq/A440);
 }
 
-QString FFTDevice::semitoneSymbol(double semitone)
+void FFTDevice::updateNote(double semitone)
 {
-   QString symbol;
-   
    // round
    int st = round(semitone);
-   double remainder = semitone - st; // unsigned modulo
-   // perform unsigned modulo with right rounding now
+   double remainder = semitone - st;
+   // unsigned modulo with right rounding
    SemiToneSymbol sym = (SemiToneSymbol)((st % 12 + 12) % 12);
-
    m_note.setSymbol(sym);
    m_note.setRemainder(remainder);
-   symbol = m_note.getSymbolString();
-   //qDebug() << symbol << remainder;
-   return symbol;
 }
    
 } // end namespace qTuner

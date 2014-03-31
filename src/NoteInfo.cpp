@@ -10,8 +10,7 @@ NoteInfo::NoteInfo(const NoteInfo& other):
    m_symbol(other.m_symbol),
    m_remainder(other.m_remainder)
 {}
-NoteInfo::~NoteInfo(){};
-
+NoteInfo::~NoteInfo(){}
 
 SemiToneSymbol NoteInfo::getSymbol()   { return m_symbol; }
 double         NoteInfo::getRemainder(){ return m_remainder; }
@@ -41,6 +40,7 @@ void NoteInfo::setSymbol(SemiToneSymbol sym)
 {
    m_symbol = sym;
 }
+
 void NoteInfo::setRemainder(double remainder)
 {
    m_remainder = remainder;

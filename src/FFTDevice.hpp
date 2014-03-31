@@ -48,7 +48,7 @@ private:
    int  maxPosition(double       data[], int n);
    double  frequencyAt(int pos);
    double  semitone(double freq);
-   QString semitoneSymbol(double semitone);
+   void    updateNote(double semitone);
    
    void dump(qint16 data[], int n);
    void dump(double data[], int n);
