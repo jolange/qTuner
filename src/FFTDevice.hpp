@@ -1,11 +1,13 @@
 #ifndef FFTDEVICE_HPP_
 #define FFTDEVICE_HPP_
 
-#include "NoteInfo.hpp"
-
-// do this before any other math include,
+// define this before any other math include,
 // because in Windows this is disabled by default
 #define _USE_MATH_DEFINES
+
+#include "NoteInfo.hpp"
+
+
 #include <cmath>
 #include <complex>
 
