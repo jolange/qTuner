@@ -1,23 +1,13 @@
 #include "FFTDevice.hpp"
 
+#include "winMath.hpp"
+
 #include <iostream>
 
 #include <QDebug>
 #include <QtEndian>
 
 namespace qTuner{
-
-// lack of Windows math functions
-#ifdef _WIN32
-double log2(double d)
-{
-   return log(d)/log(2.);
-}
-double round(double d)
-{
-   return floor(d + 0.5);
-}
-#endif // _WIN32
 
 FFTDevice::FFTDevice(const QAudioFormat &aFormat, QObject *parent):
    QIODevice(parent),

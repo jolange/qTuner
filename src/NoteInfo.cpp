@@ -1,5 +1,7 @@
 #include "NoteInfo.hpp"
 
+#include "winMath.hpp"
+
 #include <cmath>
 
 namespace qTuner{
@@ -22,7 +24,7 @@ void NoteInfo::setFromSemitone(double st)
    m_remainder = st - stR;
    // unsigned modulo with right rounding
    m_semitone  = ((stR % 12 + 12) % 12);
-   m_symbol    = (SemiToneSymbol)m_semitone;
+   m_symbol    = (SemiToneSymbol)(int)m_semitone;
    m_semitone += m_remainder;
 }
 

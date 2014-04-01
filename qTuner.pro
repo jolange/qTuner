@@ -23,9 +23,11 @@ INCLUDEPATH +=
 FORMS     += src/UIMain.ui
 HEADERS   += src/UIMain.hpp        \
              src/FFTDevice.hpp     \
-             src/NoteInfo.hpp
+             src/NoteInfo.hpp      \
+             src/winMath.hpp
 SOURCES   += src/main.cpp          \
              src/UIMain.cpp        \
              src/FFTDevice.cpp     \
-             src/NoteInfo.cpp
+             src/NoteInfo.cpp      \
+             src/winMath.cpp
 RESOURCES += resources/qTuner.qrc
