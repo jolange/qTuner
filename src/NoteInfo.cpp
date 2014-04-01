@@ -1,5 +1,7 @@
 #include "NoteInfo.hpp"
 
+#include <cmath>
+
 namespace qTuner{
 
 NoteInfo::NoteInfo():
@@ -7,13 +9,37 @@ NoteInfo::NoteInfo():
 {}
 NoteInfo::NoteInfo(const NoteInfo& other):
    QObject(),
+   m_semitone(other.m_semitone),
    m_symbol(other.m_symbol),
    m_remainder(other.m_remainder)
 {}
 NoteInfo::~NoteInfo(){}
 
+void NoteInfo::setFromSemitone(double st)
+{
+   // round
+   int stR = round(st);
+   m_remainder = st - stR;
+   // unsigned modulo with right rounding
+   m_semitone  = ((stR % 12 + 12) % 12);
+   m_symbol    = (SemiToneSymbol)m_semitone;
+   m_semitone += m_remainder;
+}
+
+void NoteInfo::setSymbol(SemiToneSymbol sym)
+{
+   m_symbol = sym;
+}
+
+void NoteInfo::setRemainder(double remainder)
+{
+   m_remainder = remainder;
+}
+
+
 SemiToneSymbol NoteInfo::getSymbol()   { return m_symbol; }
 double         NoteInfo::getRemainder(){ return m_remainder; }
+double         NoteInfo::getSemitone() { return m_semitone; }
 
 QString NoteInfo::getSymbolString()
 {
@@ -36,14 +62,5 @@ QString NoteInfo::getSymbolString()
    return symbol;
 }
 
-void NoteInfo::setSymbol(SemiToneSymbol sym)
-{
-   m_symbol = sym;
-}
-
-void NoteInfo::setRemainder(double remainder)
-{
-   m_remainder = remainder;
-}
 
 } // end namespace qTuner

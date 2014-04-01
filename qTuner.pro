@@ -2,6 +2,7 @@ TEMPLATE = app
 TARGET   = qTuner
 VERSION  = 0.1b
 
+
 # for access in code
 DEFINES += PROJECTVERSION=$$VERSION
 
@@ -27,4 +28,4 @@ SOURCES   += src/main.cpp          \
              src/UIMain.cpp        \
              src/FFTDevice.cpp     \
              src/NoteInfo.cpp
-RESOURCES += 
+RESOURCES += resources/qTuner.qrc

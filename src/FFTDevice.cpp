@@ -174,13 +174,7 @@ double FFTDevice::semitone(double freq)
 
 void FFTDevice::updateNote(double semitone)
 {
-   // round
-   int st = round(semitone);
-   double remainder = semitone - st;
-   // unsigned modulo with right rounding
-   SemiToneSymbol sym = (SemiToneSymbol)((st % 12 + 12) % 12);
-   m_note.setSymbol(sym);
-   m_note.setRemainder(remainder);
+   m_note.setFromSemitone(semitone);
 }
    
 } // end namespace qTuner

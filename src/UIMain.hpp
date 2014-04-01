@@ -21,10 +21,17 @@ public:
    virtual ~UIMain();
 private:
    Ui::UIMain ui;
+   
+   QSize  m_sizeDrawArea;
+   QImage m_imgOctave;
+   
    QAudioFormat     m_audioFormat;
    QAudioDeviceInfo m_deviceInfo;
    QAudioInput*     m_audioInput;
    FFTDevice*       m_FFTDevice;
+   
+   void setupDrawArea();
+   void updateDrawArea(double semitone);
 private slots:
    void slotUpdateNoteInfo(NoteInfo note);
 };

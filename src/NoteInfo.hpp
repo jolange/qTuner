@@ -22,11 +22,14 @@ public:
    SemiToneSymbol getSymbol();
    QString        getSymbolString();
    double         getRemainder();
+   double         getSemitone(); // relative to A440
 
+   void setFromSemitone(double st); // relative to A440
    void setSymbol(SemiToneSymbol sym);
    void setRemainder(double remainder);
 
 private:
+   double         m_semitone;
    SemiToneSymbol m_symbol;
    double         m_remainder;
 };
