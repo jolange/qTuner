@@ -50,14 +50,10 @@ void UIMain::setupDrawArea()
    imgNoteMark.load(":img/marker.png");
    m_imgOctave = QImage(m_sizeDrawArea, QImage::Format_ARGB32_Premultiplied);
    QPainter painter(&m_imgOctave);
-   //painter.fillRect(m_imgOctave.rect(), Qt::transparent);
-   //painter.setCompositionMode(QPainter::CompositionMode_Source);
    int pos;
    for (int i=0; i<=12; i++){
       pos = (m_sizeDrawArea.width()/12.0)*i;
       painter.drawImage(pos-imgNoteMark.width()/2,0,imgNoteMark);
-      //painter.drawImage(100,0,imgNoteMark);
-      //painter.drawImage(m_sizeDrawArea.width()-imgNoteMark.width()/2,0,imgNoteMark);
    }
    painter.end();
    ui.drawArea->setMinimumWidth(m_sizeDrawArea.width());
@@ -73,7 +69,6 @@ void UIMain::updateDrawArea(double semitone)
    QPainter painter(&imgTotal);
    painter.drawImage(0,0,m_imgOctave);
    double pos = semitone * m_sizeDrawArea.width()/12.0;
-   qDebug() << semitone;
    painter.drawImage(pos-imgArrow.width()/2,0,imgArrow);
    painter.end();
    ui.drawArea->setPixmap(QPixmap::fromImage(imgTotal));
