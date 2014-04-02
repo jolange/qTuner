@@ -51,6 +51,7 @@ void UIMain::setupDrawArea()
    m_imgNoteMark.fill(QApplication::palette().color(QPalette::WindowText));
    m_imgArrow.load(":/img/arrow.png");
    m_imgOctave = QPixmap(m_sizeDrawArea);
+   m_imgOctave.fill(Qt::transparent);
    QPainter painter(&m_imgOctave);
    painter.setFont(QFont("Arial", 30, QFont::Bold));
    painter.setPen(QApplication::palette().color(QPalette::WindowText));
@@ -76,13 +77,14 @@ void UIMain::setupDrawArea()
 
 void UIMain::updateDrawArea(double semitone)
 {
-   QImage imgTotal(m_sizeDrawArea, QImage::Format_ARGB32_Premultiplied);
+   QPixmap imgTotal(m_sizeDrawArea);
+   imgTotal.fill(Qt::transparent);
    QPainter painter(&imgTotal);
    painter.drawPixmap(0,0,m_imgOctave);
    double pos = fmod(semitone+.5,12.0) * m_sizeDrawArea.width()/12.0;
    painter.drawPixmap(pos-m_imgArrow.width()/2,0,m_imgArrow);
    painter.end();
-   ui.drawArea->setPixmap(QPixmap::fromImage(imgTotal));
+   ui.drawArea->setPixmap(imgTotal);
 }
 
 void UIMain::slotUpdateNoteInfo(NoteInfo note)
