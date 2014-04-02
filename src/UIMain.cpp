@@ -49,7 +49,7 @@ void UIMain::setupDrawArea()
 {
    m_imgNoteMark.load(":img/marker.png");
    m_imgArrow.load(":/img/arrow.png");
-   m_imgOctave = QImage(m_sizeDrawArea, QImage::Format_ARGB32_Premultiplied);
+   m_imgOctave = QPixmap(m_sizeDrawArea);
    QPainter painter(&m_imgOctave);
    painter.setPen(Qt::black);
    painter.setFont(QFont("Arial", 30, QFont::Bold));
@@ -57,7 +57,7 @@ void UIMain::setupDrawArea()
    int pos;
    for (int i=0; i<12; i++){
       pos = (m_sizeDrawArea.width()/12.0)*(i+.5);
-      painter.drawImage(pos-m_imgNoteMark.width()/2,0,m_imgNoteMark);
+      painter.drawPixmap(pos-m_imgNoteMark.width()/2,0,m_imgNoteMark);
       sNote = NoteInfo::getSymbolString((SemiToneSymbol)i);
       if (sNote.size() == 1){
          pos -= 14;
@@ -70,16 +70,16 @@ void UIMain::setupDrawArea()
    painter.end();
    ui.drawArea->setMinimumWidth(m_sizeDrawArea.width());
    ui.drawArea->resize(m_sizeDrawArea);
-   ui.drawArea->setPixmap(QPixmap::fromImage(m_imgOctave));
+   ui.drawArea->setPixmap(m_imgOctave);
 }
 
 void UIMain::updateDrawArea(double semitone)
 {
    QImage imgTotal(m_sizeDrawArea, QImage::Format_ARGB32_Premultiplied);
    QPainter painter(&imgTotal);
-   painter.drawImage(0,0,m_imgOctave);
+   painter.drawPixmap(0,0,m_imgOctave);
    double pos = fmod(semitone+.5,12.0) * m_sizeDrawArea.width()/12.0;
-   painter.drawImage(pos-m_imgArrow.width()/2,0,m_imgArrow);
+   painter.drawPixmap(pos-m_imgArrow.width()/2,0,m_imgArrow);
    painter.end();
    ui.drawArea->setPixmap(QPixmap::fromImage(imgTotal));
 }

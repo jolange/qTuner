@@ -22,10 +22,10 @@ public:
 private:
    Ui::UIMain ui;
    
-   QSize  m_sizeDrawArea;
-   QImage m_imgNoteMark;
-   QImage m_imgArrow;
-   QImage m_imgOctave;
+   QSize   m_sizeDrawArea;
+   QPixmap m_imgNoteMark;
+   QPixmap m_imgArrow;
+   QPixmap m_imgOctave;
    
    QAudioFormat     m_audioFormat;
    QAudioDeviceInfo m_deviceInfo;
