@@ -23,6 +23,8 @@ private:
    Ui::UIMain ui;
    
    QSize  m_sizeDrawArea;
+   QImage m_imgNoteMark;
+   QImage m_imgArrow;
    QImage m_imgOctave;
    
    QAudioFormat     m_audioFormat;

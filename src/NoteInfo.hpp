@@ -21,6 +21,7 @@ public:
    
    SemiToneSymbol getSymbol();
    QString        getSymbolString();
+   static QString getSymbolString(SemiToneSymbol sym);
    double         getRemainder();
    double         getSemitone(); // relative to A440
 

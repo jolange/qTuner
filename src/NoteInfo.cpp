@@ -64,5 +64,25 @@ QString NoteInfo::getSymbolString()
    return symbol;
 }
 
+QString NoteInfo::getSymbolString(SemiToneSymbol sym)
+{
+   QString symbol;
+   switch (sym){
+      case A : symbol = "A" ; break;
+      case Bb: symbol = "Bb"; break;
+      case B : symbol = "B" ; break;
+      case C : symbol = "C" ; break;
+      case Db: symbol = "Db"; break;
+      case D : symbol = "D" ; break;
+      case Eb: symbol = "Eb"; break;
+      case E : symbol = "E" ; break;
+      case F : symbol = "F" ; break;
+      case Gb: symbol = "Gb"; break;
+      case G : symbol = "G" ; break;
+      case Ab: symbol = "Ab"; break;
+      default: symbol = "?" ; break;
+   }
+   return symbol;
+}
 
 } // end namespace qTuner
