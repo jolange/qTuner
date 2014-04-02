@@ -47,12 +47,13 @@ UIMain::~UIMain()
 
 void UIMain::setupDrawArea()
 {
-   m_imgNoteMark.load(":img/marker.png");
+   m_imgNoteMark = QPixmap(20,60);
+   m_imgNoteMark.fill(QApplication::palette().color(QPalette::WindowText));
    m_imgArrow.load(":/img/arrow.png");
    m_imgOctave = QPixmap(m_sizeDrawArea);
    QPainter painter(&m_imgOctave);
-   painter.setPen(Qt::black);
    painter.setFont(QFont("Arial", 30, QFont::Bold));
+   painter.setPen(QApplication::palette().color(QPalette::WindowText));
    QString sNote;
    int pos;
    for (int i=0; i<12; i++){
