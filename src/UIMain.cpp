@@ -23,7 +23,6 @@ UIMain::UIMain():
    connect(ui.actionAbout, SIGNAL(activated()),
            this          , SLOT  (slotShowAboutDialog()));
 
-
    m_audioFormat.setSampleRate(32000);
    m_audioFormat.setChannels(1);
    m_audioFormat.setSampleSize(16);
@@ -36,7 +35,6 @@ UIMain::UIMain():
 
    connect (m_FFTDevice, SIGNAL(signalNoteUpdated(NoteInfo)),
             this       , SLOT  (slotUpdateNoteInfo(NoteInfo)));
-
 
    m_FFTDevice ->start();
    m_audioInput->start(m_FFTDevice);

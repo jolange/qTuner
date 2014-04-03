@@ -5,4 +5,18 @@
 for **License** see [LICENSE file](LICENSE)
 
 
-In development and at the moment not usable.
+##### Building
+- **Prerequisites**: [Qt4](https://qt-project.org/)
+- **Linux**: In the base-path (where the qt-bfint.pro is located):
+<pre><code>$ qmake
+$ make
+$ ./bin/qTuner</pre></code>
+- **Windows**
+ * in Visual Studio Command prompt
+<pre><code>$ qmake
+$ nmake release</pre></code>
+ * or just get precompiled binara (TODO)
+
+
+##### [Release](https://github.com/johannes-lange/qTuner/releases) notes:
+- development Version 0.1b: nested loops work, variable tape size
