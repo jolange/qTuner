@@ -37,3 +37,4 @@ SOURCES   += src/main.cpp          \
              src/NoteInfo.cpp      \
              src/winMath.cpp
 RESOURCES += resources/qTuner.qrc
+RC_FILE    = qTuner.rc
