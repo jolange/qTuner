@@ -1,5 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="/img">
+   <file>qTuner.png</file>
    <file>arrow.png</file>
 </qresource>
 <qresource prefix="/resources">

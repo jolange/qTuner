@@ -19,6 +19,7 @@ UIMain::UIMain():
    m_FFTDevice(0)
 {
    ui.setupUi(this);
+   setWindowIcon(QIcon(":/img/qTuner.png"));
    
    connect(ui.actionAbout, SIGNAL(activated()),
            this          , SLOT  (slotShowAboutDialog()));
