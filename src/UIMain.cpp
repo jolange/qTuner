@@ -4,6 +4,8 @@
 #include "NoteInfo.hpp"
 
 #include <QDebug>
+#include <QFile>
+#include <QMessageBox>
 #include <QPainter>
 #include <QString>
 
@@ -17,6 +19,9 @@ UIMain::UIMain():
    m_FFTDevice(0)
 {
    ui.setupUi(this);
+   
+   connect(ui.actionAbout, SIGNAL(activated()),
+           this          , SLOT  (slotShowAboutDialog()));
 
 
    m_audioFormat.setSampleRate(32000);
@@ -92,6 +97,23 @@ void UIMain::slotUpdateNoteInfo(NoteInfo note)
    updateDrawArea(note.getSemitone());
    ui.labelNote     ->setText(note.getSymbolString());
    ui.labelRemainder->setText(QString::number(note.getRemainder(),'f',2));
+}
+
+void UIMain::slotShowAboutDialog()
+{
+   QString text = "<b>qTuner</b> by Johannes Lange"; // backup text
+   #define STRING1(x) #x
+   #define STRING(x) STRING1(x)
+   QString version( STRING(PROJECTVERSION) );
+   #undef STRING
+   #undef STRING1
+   QFile aboutFile(":/resources/aboutText.html");
+   if(aboutFile.open(QIODevice::ReadOnly)){
+      text = aboutFile.readAll();
+      text = text.arg(version).arg( __DATE__ );
+      aboutFile.close();
+   }
+   QMessageBox::about(this, QString("About qTuner"), text);
 }
 
 } // end namespace qTuner

@@ -36,5 +36,6 @@ private:
    void updateDrawArea(double semitone);
 private slots:
    void slotUpdateNoteInfo(NoteInfo note);
+   void slotShowAboutDialog();
 };
 #endif // UIMAIN_HPP_
