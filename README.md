@@ -18,4 +18,5 @@ $ ./bin/qTuner</pre></code>
 $ nmake release</pre></code>
 
 ##### [Release](https://github.com/johannes-lange/qTuner/releases) notes:
-- development Version 0.1b
+- development Version 0.2b
+- 2014-04-03 Version 0.1: first release
