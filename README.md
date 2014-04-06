@@ -1,4 +1,4 @@
-#qTuner
+#![icon](./resources/qTuner.png)  qTuner
 [Qt4](https://qt-project.org/) based Guitar Tuner
 
 &copy; 2014 Johannes Lange,
