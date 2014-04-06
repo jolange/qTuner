@@ -6,6 +6,7 @@
 int main(int argc, char* argv[])
 {
    using namespace qTuner;
+   QApplication::setGraphicsSystem("raster");
    QApplication application(argc,argv);
    #ifndef _WIN32
    application.setStyle(new QGtkStyle());

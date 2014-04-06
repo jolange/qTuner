@@ -5,13 +5,13 @@
 for **License** see [LICENSE file](LICENSE)
 
 ##### Building
-- **Prerequisites**: [Qt4](https://qt-project.org/)
+- **Prerequisites**: [Qt4](https://qt-project.org/), microphone (built-in, headset, ...)
 - **Linux**: In the base-path:
 <pre><code>$ qmake
 $ make
 $ ./bin/qTuner</pre></code>
 - **Windows**
- * just get precompiled binary (TODO)
+ * just get precompiled [binary](https://github.com/johannes-lange/qTuner/releases/download/v0.1/qTuner-bin.zip)
    (you might have to install the [MSVC++ libraries](http://www.microsoft.com/en-gb/download/details.aspx?id=5555))
  * or compile: in Visual Studio Command prompt
 <pre><code>$ qmake
