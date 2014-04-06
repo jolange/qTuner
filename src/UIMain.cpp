@@ -20,7 +20,12 @@ UIMain::UIMain():
 {
    ui.setupUi(this);
    setWindowIcon(QIcon(":/img/qTuner.png"));
+   ui.widgetNumTuner->setVisible(false);
    
+   connect(ui.actionShowGrTuner , SIGNAL(triggered(bool)),
+           ui.drawArea          , SLOT  (setVisible(bool)));
+   connect(ui.actionShowNumTuner, SIGNAL(triggered(bool)),
+           ui.widgetNumTuner    , SLOT  (setVisible(bool)));
    connect(ui.actionAbout, SIGNAL(activated()),
            this          , SLOT  (slotShowAboutDialog()));
 
