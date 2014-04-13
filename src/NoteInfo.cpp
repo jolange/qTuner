@@ -7,10 +7,12 @@
 namespace qTuner{
 
 NoteInfo::NoteInfo():
-   QObject()
+   QObject(),
+   m_frequency(0) // stays unset, if directly set from semitone
 {}
 NoteInfo::NoteInfo(const NoteInfo& other):
    QObject(),
+   m_frequency(other.m_frequency),
    m_semitone(other.m_semitone),
    m_symbol(other.m_symbol),
    m_remainder(other.m_remainder)
@@ -26,11 +28,15 @@ void NoteInfo::setFromSemitone(double st)
    m_semitone  = ((stR % 12 + 12) % 12);
    m_symbol    = (SemiToneSymbol)(int)m_semitone;
    m_semitone += m_remainder;
+   
+   // will be reset, if "setFromFrequency", otherwise it's 0
+   m_frequency = 0;
 }
 
 void NoteInfo::setFromFrequency(double f)
 {
    setFromSemitone(semitone(f));
+   m_frequency = f;
 }
 
 void NoteInfo::setSymbol(SemiToneSymbol sym)
@@ -45,6 +51,7 @@ void NoteInfo::setRemainder(double remainder)
 
 
 SemiToneSymbol NoteInfo::getSymbol()   { return m_symbol; }
+double         NoteInfo::getFrequency(){ return m_frequency; }
 double         NoteInfo::getRemainder(){ return m_remainder; }
 double         NoteInfo::getSemitone() { return m_semitone; }
 

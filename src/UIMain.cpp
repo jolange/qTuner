@@ -99,7 +99,11 @@ void UIMain::updateDrawArea(double semitone)
 void UIMain::slotUpdateNoteInfo(NoteInfo note)
 {
    updateDrawArea(note.getSemitone());
-   ui.labelNote     ->setText(note.getSymbolString());
+   double f = note.getFrequency();
+   QString freq = QString(" (%1 Hz)")
+                  .arg(f == 0 ? "?" : QString::number(f,'f',0));
+   ui.labelFreq     ->setText(freq);
+   ui.labelNote     ->setText(note.getSymbolString()+" ");
    ui.labelRemainder->setText(QString::number(note.getRemainder(),'f',2));
 }
 

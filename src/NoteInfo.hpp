@@ -25,6 +25,7 @@ public:
    QString        getSymbolString();
    static double  semitone(double freq);
    static QString getSymbolString(SemiToneSymbol sym);
+   double         getFrequency();
    double         getRemainder();
    double         getSemitone(); // relative to A440
 
@@ -34,6 +35,7 @@ public:
    void setRemainder(double remainder);
 
 private:
+   double         m_frequency; // 0 if not set from frequency
    double         m_semitone;
    SemiToneSymbol m_symbol;
    double         m_remainder;
