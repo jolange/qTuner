@@ -28,6 +28,11 @@ void NoteInfo::setFromSemitone(double st)
    m_semitone += m_remainder;
 }
 
+void NoteInfo::setFromFrequency(double f)
+{
+   setFromSemitone(semitone(f));
+}
+
 void NoteInfo::setSymbol(SemiToneSymbol sym)
 {
    m_symbol = sym;
@@ -42,6 +47,13 @@ void NoteInfo::setRemainder(double remainder)
 SemiToneSymbol NoteInfo::getSymbol()   { return m_symbol; }
 double         NoteInfo::getRemainder(){ return m_remainder; }
 double         NoteInfo::getSemitone() { return m_semitone; }
+
+// relative to A440
+double NoteInfo::semitone(double freq)
+{
+   // f = 2^(n/12) * 440Hz
+   return 12.0 * log2(freq/A440);
+}
 
 QString NoteInfo::getSymbolString()
 {

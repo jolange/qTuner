@@ -12,8 +12,7 @@ namespace qTuner{
 FFTDevice::FFTDevice(const QAudioFormat &aFormat, QObject *parent):
    QIODevice(parent),
    m_audioFormat(aFormat),
-   m_iResolutionFactor(20),
-   A440(440.0) // Hz
+   m_iResolutionFactor(20)
 {
    m_iSampleBytes = m_audioFormat.sampleSize() / 8;
 }
@@ -49,7 +48,7 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
    double f = frequencyAt(maxPosition(spectrum, m_iSamples));
    //qDebug() <<  semitone(f) << f;
    //qDebug() << f;
-   updateNote(semitone(f));
+   m_note.setFromFrequency(f);
    emit signalNoteUpdated(m_note);
    
    delete[] spectrum;
@@ -153,18 +152,6 @@ void FFTDevice::setResolutionFactor(int res)
       res = 20;
    
    m_iResolutionFactor = res;
-}
-
-// relative to A440
-double FFTDevice::semitone(double freq)
-{
-   // f = 2^(n/12) * 440Hz
-   return 12.0 * log2(freq/A440);
-}
-
-void FFTDevice::updateNote(double semitone)
-{
-   m_note.setFromSemitone(semitone);
 }
    
 } // end namespace qTuner

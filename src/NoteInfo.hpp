@@ -15,17 +15,21 @@ class qTuner::NoteInfo : public QObject
 Q_OBJECT
 
 public:
+   static const double A440 = 440.0; // Hz
+
    NoteInfo();
    NoteInfo(const NoteInfo& other);
    virtual ~NoteInfo();
    
    SemiToneSymbol getSymbol();
    QString        getSymbolString();
+   static double  semitone(double freq);
    static QString getSymbolString(SemiToneSymbol sym);
    double         getRemainder();
    double         getSemitone(); // relative to A440
 
    void setFromSemitone(double st); // relative to A440
+   void setFromFrequency(double f); // relative to A440
    void setSymbol(SemiToneSymbol sym);
    void setRemainder(double remainder);
 
