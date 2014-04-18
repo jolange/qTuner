@@ -43,14 +43,10 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
    calcSpectrumSize();
    double* spectrum = new double[m_iSpectrumSize];
    fft(values, spectrum);
-   //qDebug() << "raw";  dump(values, m_iSamples);
-   //qDebug() << "spec"; dump(spectrum,m_iSamples);
    double f = frequencyAt(maxPosition(spectrum, m_iSamples));
-   //qDebug() <<  semitone(f) << f;
-   //qDebug() << f;
    m_note.setFromFrequency(f);
    emit signalNoteUpdated(m_note);
-   
+
    delete[] spectrum;
    delete[] values;
    return len;
@@ -58,7 +54,6 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
 
 void FFTDevice::fft(qint16 data[], double spectr[])
 {
-
    // create complex values for fft
    // and fill with zeros for higher precision
    std::complex<double>* cData = new std::complex<double>[m_iSpectrumSize];
@@ -67,7 +62,7 @@ void FFTDevice::fft(qint16 data[], double spectr[])
    // add zeros
    for (int i=m_iSamples; i<m_iSpectrumSize; i++)
       cData[i] = std::complex<double>(0.0,0.0);
-   
+
    fft(cData,m_iSpectrumSize);
    // put back only first n values
    for (int i=0; i<m_iSpectrumSize; i++)
@@ -80,7 +75,7 @@ void FFTDevice::fft(std::complex<double> data[], int n)
 {
    if (n == 1)
       return;
-   
+
    // even and uneven partition
    std::complex<double>* ev = new std::complex<double>[n/2];
    std::complex<double>* ue = new std::complex<double>[n/2];
@@ -88,17 +83,17 @@ void FFTDevice::fft(std::complex<double> data[], int n)
       ev[i] = data[2*i];
       ue[i] = data[2*i+1];
    }
-   
+
    fft(ev, n/2);
    fft(ue, n/2);
-   
+
    double phi;
    for (int k = 0; k < n/2-1; k++){
       phi = - 2.0 * M_PI * (double)k / (double)n;
       data[k]     = ev[k] + ue[k] * std::polar(1.0, phi);
       data[k+n/2] = ev[k] - ue[k] * std::polar(1.0, phi);
    }
-   
+
    delete[] ev;
    delete[] ue;
 }
@@ -150,8 +145,8 @@ void FFTDevice::setResolutionFactor(int res)
       res = 1;
    else if (res >= 20)
       res = 20;
-   
+
    m_iResolutionFactor = res;
 }
-   
+
 } // end namespace qTuner

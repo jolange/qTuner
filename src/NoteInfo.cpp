@@ -28,7 +28,7 @@ void NoteInfo::setFromSemitone(double st)
    m_semitone  = ((stR % 12 + 12) % 12);
    m_symbol    = (SemiToneSymbol)(int)m_semitone;
    m_semitone += m_remainder;
-   
+
    // will be reset, if "setFromFrequency", otherwise it's 0
    m_frequency = 0;
 }

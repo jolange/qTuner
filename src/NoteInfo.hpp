@@ -20,7 +20,7 @@ public:
    NoteInfo();
    NoteInfo(const NoteInfo& other);
    virtual ~NoteInfo();
-   
+
    SemiToneSymbol getSymbol();
    QString        getSymbolString();
    static double  semitone(double freq);
