@@ -104,4 +104,21 @@ QString NoteInfo::getSymbolString(SemiToneSymbol sym)
    return symbol;
 }
 
+SemiToneSymbol NoteInfo::getSymbol(QString sym)
+{
+   if (sym=="A" ) return A;
+   if (sym=="Bb") return Bb;
+   if (sym=="B" ) return B;
+   if (sym=="C" ) return C;
+   if (sym=="Db") return Db;
+   if (sym=="D" ) return D;
+   if (sym=="Eb") return Eb;
+   if (sym=="E" ) return E;
+   if (sym=="F" ) return F;
+   if (sym=="Gb") return Gb;
+   if (sym=="G" ) return G;
+   if (sym=="Ab") return Ab;
+   return err;
+}
+
 } // end namespace qTuner

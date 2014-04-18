@@ -32,11 +32,13 @@ FORMS     += src/UIMain.ui
 HEADERS   += src/UIMain.hpp        \
              src/FFTDevice.hpp     \
              src/NoteInfo.hpp      \
+             src/Tuning.hpp        \
              src/winMath.hpp
 SOURCES   += src/main.cpp          \
              src/UIMain.cpp        \
              src/FFTDevice.cpp     \
              src/NoteInfo.cpp      \
+             src/Tuning.cpp        \
              src/winMath.cpp
 RESOURCES += resources/qTuner.qrc
 RC_FILE    = resources/qTuner.rc

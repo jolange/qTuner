@@ -2,6 +2,7 @@
 #include "ui_UIMain.h"
 
 #include "NoteInfo.hpp"
+#include "Tuning.hpp"
 
 #include <QDebug>
 #include <QFile>
@@ -46,6 +47,9 @@ UIMain::UIMain():
    m_audioInput->start(m_FFTDevice);
 
    setupDrawArea();
+
+   // TODO remove test
+   Tuning tuning("A,Db,E,C,Bb,Ab");
 }
 
 UIMain::~UIMain()

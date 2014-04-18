@@ -7,7 +7,7 @@ namespace qTuner
 {
    class NoteInfo;
    enum  SemiToneSymbol {A=0, Bb=1, B=2, C=3, Db=4, D=5, Eb=6,
-                         E=7, F=8, Gb=9, G=10, Ab=11};
+                         E=7, F=8, Gb=9, G=10, Ab=11, err=12};
 }
 
 class qTuner::NoteInfo : public QObject
@@ -21,10 +21,12 @@ public:
    NoteInfo(const NoteInfo& other);
    virtual ~NoteInfo();
 
+   static double         semitone(double freq);
+   static QString        getSymbolString(SemiToneSymbol sym);
+   static SemiToneSymbol getSymbol(QString sym);
+   
    SemiToneSymbol getSymbol();
    QString        getSymbolString();
-   static double  semitone(double freq);
-   static QString getSymbolString(SemiToneSymbol sym);
    double         getFrequency();
    double         getRemainder();
    double         getSemitone(); // relative to A440
