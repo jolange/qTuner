@@ -47,9 +47,7 @@ UIMain::UIMain():
    m_audioInput->start(m_FFTDevice);
 
    setupDrawArea();
-
-   // TODO remove test
-   Tuning tuning("A,Db,E,C,Bb,Ab");
+   setupTunings();
 }
 
 UIMain::~UIMain()
@@ -98,6 +96,16 @@ void UIMain::updateDrawArea(double semitone)
    painter.drawPixmap(pos-m_imgArrow.width()/2,0,m_imgArrow);
    painter.end();
    ui.drawArea->setPixmap(imgTotal);
+}
+
+void UIMain::setupTunings()
+{
+   m_lTuningPresets.append(Tuning(";None"));
+   m_lTuningPresets.append(Tuning("E,A,D,G,B,E;Standard Tuning"));
+   m_lTuningPresets.append(Tuning("D,A,D,G,B,E;Drop D"));
+   for (int i = 0; i < m_lTuningPresets.size(); i++){
+      ui.cbPresets->addItem(m_lTuningPresets[i].getName());   
+   }
 }
 
 void UIMain::slotUpdateNoteInfo(NoteInfo note)

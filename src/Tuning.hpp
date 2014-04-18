@@ -11,7 +11,7 @@ namespace qTuner
    class Tuning;
 }
 
-class qTuner::Tuning
+class qTuner::Tuning : private QList<SemiToneSymbol>
 {
 public:
    Tuning(); // TODO allow?
@@ -20,11 +20,16 @@ public:
     */
    Tuning(QString stringNotes);
    virtual ~Tuning();
-   
+
+   SemiToneSymbol at(int i) const;
+   bool           isEmpty() const;
+   int            size()    const;
+
+   QString getName() const;
+
 private:
    QString               m_sName;
    QString               m_sStringNotes;
-   QList<SemiToneSymbol> m_lStringNotes;
 
    void extractFromString();
 };

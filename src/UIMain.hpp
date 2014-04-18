@@ -4,6 +4,7 @@
 #include "ui_UIMain.h"
 
 #include "FFTDevice.hpp"
+#include "Tuning.hpp"
 #include <QMainWindow>
 
 namespace qTuner { class UIMain; }
@@ -32,8 +33,11 @@ private:
    QAudioInput*     m_audioInput;
    FFTDevice*       m_FFTDevice;
 
+   QList<Tuning> m_lTuningPresets;
+
    void setupDrawArea();
    void updateDrawArea(double semitone);
+   void setupTunings();
 private slots:
    void slotUpdateNoteInfo(NoteInfo note);
    void slotShowAboutDialog();
