@@ -14,7 +14,7 @@ namespace qTuner{
 
 UIMain::UIMain():
    QMainWindow(),
-   m_sizeDrawArea(800, 100),
+   m_sizeDrawArea(800, 140),
    m_deviceInfo(QAudioDeviceInfo::defaultInputDevice()),
    m_audioInput(0),
    m_FFTDevice(0)
@@ -22,13 +22,19 @@ UIMain::UIMain():
    ui.setupUi(this);
    setWindowIcon(QIcon(":/img/qTuner.png"));
    ui.widgetNumTuner->setVisible(false);
+   setupTunings();
+   slotSetupDrawArea();
 
    connect(ui.actionShowGrTuner , SIGNAL(triggered(bool)),
            ui.drawArea          , SLOT  (setVisible(bool)));
+   connect(ui.actionShowGrTuner , SIGNAL(triggered(bool)),
+           ui.widgetPresets     , SLOT  (setVisible(bool)));
    connect(ui.actionShowNumTuner, SIGNAL(triggered(bool)),
            ui.widgetNumTuner    , SLOT  (setVisible(bool)));
    connect(ui.actionAbout, SIGNAL(activated()),
            this          , SLOT  (slotShowAboutDialog()));
+   connect(ui.cbPresets, SIGNAL(currentIndexChanged(int)),
+           this        , SLOT  (slotSetupDrawArea()));
 
    m_audioFormat.setSampleRate(32000);
    m_audioFormat.setChannels(1);
@@ -40,14 +46,12 @@ UIMain::UIMain():
    m_FFTDevice  = new FFTDevice(m_audioFormat, this);
    m_audioInput = new QAudioInput(m_deviceInfo, m_audioFormat, this);
 
-   connect (m_FFTDevice, SIGNAL(signalNoteUpdated(NoteInfo)),
-            this       , SLOT  (slotUpdateNoteInfo(NoteInfo)));
+   connect(m_FFTDevice, SIGNAL(signalNoteUpdated(NoteInfo)),
+           this       , SLOT  (slotUpdateNoteInfo(NoteInfo)));
 
    m_FFTDevice ->start();
    m_audioInput->start(m_FFTDevice);
 
-   setupDrawArea();
-   setupTunings();
 }
 
 UIMain::~UIMain()
@@ -56,9 +60,10 @@ UIMain::~UIMain()
    delete m_audioInput;
 }
 
-void UIMain::setupDrawArea()
+void UIMain::slotSetupDrawArea()
 {
-   m_imgNoteMark = QPixmap(20,60);
+   int imgNoteMarkHeight = 100;
+   m_imgNoteMark = QPixmap(20,imgNoteMarkHeight);
    m_imgNoteMark.fill(QApplication::palette().color(QPalette::WindowText));
    m_imgArrow.load(":/img/arrow.png");
    m_imgOctave = QPixmap(m_sizeDrawArea);
@@ -77,7 +82,41 @@ void UIMain::setupDrawArea()
       }else{
          pos -= 26;
       }
-      painter.drawText(pos,100,sNote);
+      painter.drawText(pos,imgNoteMarkHeight+40,sNote);
+   }
+
+   // draw string numbers of tuning preset:
+   painter.setPen(QApplication::palette().color(QPalette::Window));
+   painter.setFont(QFont("Arial", 20, QFont::Bold));
+   int iPreset = ui.cbPresets->currentIndex();
+   Tuning tun = m_lTuningPresets[iPreset];
+   if (!tun.isEmpty()){
+      QVector<QStringList> drawLater(12); // index = position, QStringList = Labels
+      SemiToneSymbol stSym;
+      for (int i = 0; i < tun.size(); i++){
+         stSym = tun.at(i);
+         if (tun.count(stSym) > 1){
+            // if multiple strings with same tuning: draw later smaller
+            drawLater[(int)stSym].append(QString::number(i+1));
+         }else{
+            pos = (m_sizeDrawArea.width()/12.0)*((int)stSym+.5)-8;
+            painter.drawText(pos,imgNoteMarkHeight-1,QString::number(i+1));
+         }
+      }
+      // draw double occurrences
+      // TODO just one column if <= 3?
+      painter.setFont(QFont("Arial", 10, QFont::Bold));
+      for (int iPos = 0; iPos < drawLater.size(); iPos++){
+         QStringList& strings = drawLater[iPos];
+         int iStrings = strings.size();
+         for (int iStr = 0; iStr < iStrings; iStr++){
+            pos = (m_sizeDrawArea.width()/12.0)*(iPos+.5)-8;
+            if (iStr%2 == 1) // column alignment
+               pos += 10;
+            double height = imgNoteMarkHeight-1 - ((iStrings-1)/2-iStr/2) * 16;
+            painter.drawText(pos,height,strings[iStr]);
+         }
+      }
    }
 
    painter.end();
@@ -103,6 +142,8 @@ void UIMain::setupTunings()
    m_lTuningPresets.append(Tuning(";None"));
    m_lTuningPresets.append(Tuning("E,A,D,G,B,E;Standard Tuning"));
    m_lTuningPresets.append(Tuning("D,A,D,G,B,E;Drop D"));
+   m_lTuningPresets.append(Tuning("E,E,E;Test"));
+   m_lTuningPresets.append(Tuning("E,E,E,E,E,E,E;Test"));
    for (int i = 0; i < m_lTuningPresets.size(); i++){
       ui.cbPresets->addItem(m_lTuningPresets[i].getName());   
    }

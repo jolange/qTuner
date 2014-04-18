@@ -39,17 +39,24 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QWidget" name="widget_2" native="true">
+       <widget class="QWidget" name="widgetPresets" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
           <widget class="QLabel" name="label">
+           <property name="toolTip">
+            <string>String numbers are shown in graphical tuner if set</string>
+           </property>
            <property name="text">
             <string>Tuning Preset:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="cbPresets"/>
+          <widget class="QComboBox" name="cbPresets">
+           <property name="toolTip">
+            <string>String numbers are shown in graphical tuner if set</string>
+           </property>
+          </widget>
          </item>
          <item>
           <spacer name="horizontalSpacer_3">

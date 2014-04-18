@@ -47,6 +47,10 @@ SemiToneSymbol Tuning::at(int i) const
 {
    return QList<SemiToneSymbol>::at(i);
 }
+int Tuning::count(const SemiToneSymbol st) const
+{
+   return QList<SemiToneSymbol>::count(st);
+}
 
 bool Tuning::isEmpty() const
 {

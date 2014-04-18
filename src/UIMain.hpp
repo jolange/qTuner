@@ -35,10 +35,10 @@ private:
 
    QList<Tuning> m_lTuningPresets;
 
-   void setupDrawArea();
    void updateDrawArea(double semitone);
    void setupTunings();
 private slots:
+   void slotSetupDrawArea();
    void slotUpdateNoteInfo(NoteInfo note);
    void slotShowAboutDialog();
 };
