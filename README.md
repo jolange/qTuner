@@ -5,9 +5,8 @@
 for **License** see [LICENSE file](LICENSE)
 
 #### Getting qTuner
-
 - for Windows you can just get a precompiled [binary](https://github.com/johannes-lange/qTuner/releases/download/v0.1/qTuner-bin.zip)
-- or [build](#Building) yourself for any operating system
+- or [build](#building) yourself for any operating system
   (you might have to install the [MSVC++ libraries](http://www.microsoft.com/en-gb/download/details.aspx?id=5555))
 
 #### Building

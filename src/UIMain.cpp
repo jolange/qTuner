@@ -144,8 +144,9 @@ void UIMain::setupTunings()
    m_lTuningPresets.append(Tuning("D,A,D,G,B,E;Drop D"));
    m_lTuningPresets.append(Tuning("E,E,E;Test"));
    m_lTuningPresets.append(Tuning("E,E,E,E,E,E,E;Test"));
+   QIcon icon(":/img/qTuner.png");
    for (int i = 0; i < m_lTuningPresets.size(); i++){
-      ui.cbPresets->addItem(m_lTuningPresets[i].getName());   
+      ui.cbPresets->addItem(icon,m_lTuningPresets[i].getName());   
    }
 }
 
