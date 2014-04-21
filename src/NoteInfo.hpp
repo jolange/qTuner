@@ -15,7 +15,7 @@ class qTuner::NoteInfo : public QObject
 Q_OBJECT
 
 public:
-   static const double A440 = 440.0; // Hz
+   static const double A440; // 440.0 Hz
 
    NoteInfo();
    NoteInfo(const NoteInfo& other);

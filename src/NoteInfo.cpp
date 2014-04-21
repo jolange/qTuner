@@ -6,6 +6,8 @@
 
 namespace qTuner{
 
+const double NoteInfo::A440=440.0; // 440.0 Hz
+
 NoteInfo::NoteInfo():
    QObject(),
    m_frequency(0) // stays unset, if directly set from semitone
