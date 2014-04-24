@@ -23,6 +23,8 @@ public:
 private:
    Ui::UIMain ui;
 
+   QThread m_fftThread;
+
    QSize   m_sizeDrawArea;
    QPixmap m_imgNoteMark;
    QPixmap m_imgArrow;

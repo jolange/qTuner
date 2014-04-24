@@ -4,6 +4,7 @@
 #include "NoteInfo.hpp"
 #include "Tuning.hpp"
 
+#include <QtConcurrentRun>
 #include <QDebug>
 #include <QFile>
 #include <QMessageBox>
@@ -44,6 +45,7 @@ UIMain::UIMain():
    m_audioFormat.setCodec("audio/pcm");
 
    m_FFTDevice  = new FFTDevice(m_audioFormat, this);
+   //m_FFTDevice->moveToThread(&m_fftThread);
    m_audioInput = new QAudioInput(m_deviceInfo, m_audioFormat, this);
 
    connect(m_FFTDevice, SIGNAL(signalNoteUpdated(NoteInfo)),
@@ -51,7 +53,8 @@ UIMain::UIMain():
 
    m_FFTDevice ->start();
    m_audioInput->start(m_FFTDevice);
-
+   //QtConcurrent::run(m_FFTDevice, &FFTDevice::start);
+   //QtConcurrent::run(m_audioInput, &QAudioInput::start,m_FFTDevice);
 }
 
 UIMain::~UIMain()

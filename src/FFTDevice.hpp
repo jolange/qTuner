@@ -12,6 +12,7 @@
 #include <complex>
 
 #include <QAudioInput>
+#include <QThread>
 
 namespace qTuner
 {
@@ -36,6 +37,8 @@ public:
    void setResolutionFactor(int res); // res \in [1,20]
 
 private:
+   QThread m_thread;
+
    const QAudioFormat m_audioFormat;
    int                m_iSampleBytes;
    int                m_iSamples;
