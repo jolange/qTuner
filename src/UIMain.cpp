@@ -94,13 +94,14 @@ void UIMain::slotSetupDrawArea()
       QVector<QStringList> drawLater(12); // index = position, QStringList = Labels
       SemiToneSymbol stSym;
       for (int i = 0; i < tun.size(); i++){
+         int iString = tun.size()-i;
          stSym = tun.at(i);
          if (tun.count(stSym) > 1){
             // if multiple strings with same tuning: draw later smaller
             drawLater[(int)stSym].append(QString::number(i+1));
          }else{
             pos = (m_sizeDrawArea.width()/12.0)*((int)stSym+.5)-8;
-            painter.drawText(pos,imgNoteMarkHeight-1,QString::number(i+1));
+            painter.drawText(pos,imgNoteMarkHeight-1,QString::number(iString));
          }
       }
       // draw double occurrences
@@ -139,12 +140,20 @@ void UIMain::updateDrawArea(double semitone)
 
 void UIMain::setupTunings()
 {
-   m_lTuningPresets.append(Tuning(";None"));
-   m_lTuningPresets.append(Tuning("E,A,D,G,B,E;Standard Tuning"));
-   m_lTuningPresets.append(Tuning("D,A,D,G,B,E;Drop D"));
-   m_lTuningPresets.append(Tuning("E,E,E;Test"));
-   m_lTuningPresets.append(Tuning("E,E,E,E,E,E,E;Test"));
    QIcon icon(":/img/qTuner.png");
+   // no tuning preset by default
+   m_lTuningPresets.append(Tuning(";None"));
+   // read presets from file
+   QFile tuningsFile(":/resources/tunings.conf");
+   if(tuningsFile.open(QIODevice::ReadOnly)){
+      QTextStream in(&tuningsFile);
+      QString line;
+      while (!in.atEnd()) {
+         line = in.readLine();
+         m_lTuningPresets.append(Tuning(line));
+      }
+      tuningsFile.close();
+   }
    for (int i = 0; i < m_lTuningPresets.size(); i++){
       ui.cbPresets->addItem(icon,m_lTuningPresets[i].getName());   
    }

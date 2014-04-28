@@ -24,7 +24,7 @@ unix {
 }
 
 
-DEPENDPATH += src 
+DEPENDPATH += src resources
 INCLUDEPATH +=
 
 # Input
