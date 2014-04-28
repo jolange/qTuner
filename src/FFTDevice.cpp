@@ -43,8 +43,13 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
    calcSpectrumSize();
    double* spectrum = new double[m_iSpectrumSize];
    fft(values, spectrum);
-   double f = frequencyAt(maxPosition(spectrum, m_iSamples));
-   m_note.setFromFrequency(f);
+   int maxPos = maxPosition(spectrum, m_iSpectrumSize);
+   if (maxPos != -1){
+      double f = frequencyAt(maxPos);
+      m_note.setFromFrequency(f);
+   }else{
+      m_note.setSymbol(err);
+   }
    emit signalNoteUpdated(m_note);
 
    delete[] spectrum;
@@ -124,14 +129,27 @@ void FFTDevice::dump(double data[], int n)
    qDebug() << output;
 }
 
+/*!
+ * \return index of maximum bin, -1 if not over threshold
+ */
 int FFTDevice::maxPosition(double data[], int n)
 {
+   // TODO much hardcoding here...
+   int threshold  = 30; // times avg
+   int lowerBound = 0.003*n;
+   int upperBound = 0.1*n;
+   double avg = 0;
    int iMax = 0;
-   for (int i=0; i<n; i++){
+   for (int i=lowerBound; i<upperBound; i++){
+      avg += data[i];
       if (data[i] > data[iMax])
          iMax = i;
    }
-   return iMax;
+   avg/=(upperBound-lowerBound);
+   if (data[iMax] > threshold*avg)
+      return iMax;
+   //else
+      return -1;
 }
 
 double FFTDevice::frequencyAt(int pos)

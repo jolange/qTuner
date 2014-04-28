@@ -161,13 +161,23 @@ void UIMain::setupTunings()
 
 void UIMain::slotUpdateNoteInfo(NoteInfo note)
 {
-   updateDrawArea(note.getSemitone());
-   double f = note.getFrequency();
-   QString freq = QString(" (%1 Hz)")
-                  .arg(f == 0 ? "?" : QString::number(f,'f',0));
-   ui.labelFreq     ->setText(freq);
-   ui.labelNote     ->setText(note.getSymbolString()+" ");
-   ui.labelRemainder->setText(QString::number(note.getRemainder(),'f',2));
+   if (note.getSymbol()!=err){
+      updateDrawArea(note.getSemitone());
+      double f = note.getFrequency();
+      QString freq = QString(" (%1 Hz)")
+                     .arg(f == 0 ? "?" : QString::number(f,'f',0));
+      ui.labelFreq     ->setText(freq);
+      ui.labelNote     ->setText(note.getSymbolString()+" ");
+      double rem = note.getRemainder();
+      QString sRem = QString::number(rem,'f',2);
+      if (rem>=0) sRem.prepend("+");
+      ui.labelRemainder->setText(sRem);
+   }else{
+      updateDrawArea(-100); // move out of sight
+      ui.labelFreq     ->setText(" (? Hz)");
+      ui.labelNote     ->setText("?");
+      ui.labelRemainder->setText("+0.0");      
+   }
 }
 
 void UIMain::slotShowAboutDialog()

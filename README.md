@@ -6,8 +6,8 @@ for **License** see [LICENSE file](LICENSE)
 
 #### Getting qTuner
 - for Windows you can just get a precompiled [binary](https://github.com/johannes-lange/qTuner/releases/download/v0.1/qTuner-bin.zip)
-- or [build](#building) yourself for any operating system
   (you might have to install the [MSVC++ libraries](http://www.microsoft.com/en-gb/download/details.aspx?id=5555))
+- or [build](#building) manually for any operating system
 
 #### Building
 - **Prerequisites**: [Qt4](https://qt-project.org/), microphone (built-in, headset, ...)
@@ -20,5 +20,5 @@ $ ./bin/qTuner</pre></code>
 $ nmake release</pre></code>
 
 ##### [Release](https://github.com/johannes-lange/qTuner/releases) notes:
-- development Version 0.2b: tuning presets
+- development Version 0.2b: tuning presets, evaluation threshold
 - 2014-04-03 Version 0.1: first release

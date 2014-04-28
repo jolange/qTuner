@@ -44,6 +44,10 @@ void NoteInfo::setFromFrequency(double f)
 void NoteInfo::setSymbol(SemiToneSymbol sym)
 {
    m_symbol = sym;
+   // some defaults
+   m_remainder = 0;
+   m_semitone  = 0.0;
+   m_frequency = 0.0;
 }
 
 void NoteInfo::setRemainder(double remainder)
