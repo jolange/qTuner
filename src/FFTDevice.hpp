@@ -43,11 +43,11 @@ private:
    int                m_iSpectrumSize; // legth of the array the FFT is performed on
    NoteInfo           m_note;
 
-   void fft(qint16               data[], double spectr[]);
-   void fft(std::complex<double> data[], int n);
+   void fft(qint16               data[], double spectr[]) const;
+   void fft(std::complex<double> data[], int n)           const;
    void calcSpectrumSize();
-   int  maxPosition(double       data[], int n);
-   double  frequencyAt(int pos);
+   int  maxPosition(double       data[], int n)           const;
+   double frequencyAt(int pos)                            const;
 
    void dump(qint16 data[], int n);
    void dump(double data[], int n);

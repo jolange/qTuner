@@ -29,7 +29,7 @@ qint64 FFTDevice::readData(char *data, qint64 maxlen)
    return 0;
 }
 
-qint64 FFTDevice::writeData(const char *data, qint64 len)
+qint64 FFTDevice::writeData(const char *data, qint64 len) 
 {
    m_iSamples = len / m_iSampleBytes;
 
@@ -57,7 +57,7 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
    return len;
 }
 
-void FFTDevice::fft(qint16 data[], double spectr[])
+void FFTDevice::fft(qint16 data[], double spectr[]) const
 {
    // create complex values for fft
    // and fill with zeros for higher precision
@@ -76,10 +76,9 @@ void FFTDevice::fft(qint16 data[], double spectr[])
    delete[] cData;
 }
 
-void FFTDevice::fft(std::complex<double> data[], int n)
+void FFTDevice::fft(std::complex<double> data[], int n) const
 {
-   if (n == 1)
-      return;
+   if (n == 1) return;
 
    // even and uneven partition
    std::complex<double>* ev = new std::complex<double>[n/2];
@@ -132,7 +131,7 @@ void FFTDevice::dump(double data[], int n)
 /*!
  * \return index of maximum bin, -1 if not over threshold
  */
-int FFTDevice::maxPosition(double data[], int n)
+int FFTDevice::maxPosition(double data[], int n) const
 {
    // TODO much hardcoding here...
    int threshold  = 30; // times avg
@@ -152,7 +151,7 @@ int FFTDevice::maxPosition(double data[], int n)
       return -1;
 }
 
-double FFTDevice::frequencyAt(int pos)
+double FFTDevice::frequencyAt(int pos) const
 {
    return pos * (double)m_audioFormat.sampleRate() / (double)m_iSpectrumSize;
 }

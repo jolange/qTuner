@@ -56,10 +56,10 @@ void NoteInfo::setRemainder(double remainder)
 }
 
 
-SemiToneSymbol NoteInfo::getSymbol()   { return m_symbol; }
-double         NoteInfo::getFrequency(){ return m_frequency; }
-double         NoteInfo::getRemainder(){ return m_remainder; }
-double         NoteInfo::getSemitone() { return m_semitone; }
+SemiToneSymbol NoteInfo::getSymbol()    const { return m_symbol; }
+double         NoteInfo::getFrequency() const { return m_frequency; }
+double         NoteInfo::getRemainder() const { return m_remainder; }
+double         NoteInfo::getSemitone()  const { return m_semitone; }
 
 // relative to A440
 double NoteInfo::semitone(double freq)
@@ -68,7 +68,7 @@ double NoteInfo::semitone(double freq)
    return 12.0 * log2(freq/A440);
 }
 
-QString NoteInfo::getSymbolString()
+QString NoteInfo::getSymbolString() const 
 {
    QString symbol;
    switch (m_symbol){

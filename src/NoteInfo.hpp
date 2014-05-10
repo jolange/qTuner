@@ -25,11 +25,11 @@ public:
    static QString        getSymbolString(SemiToneSymbol sym);
    static SemiToneSymbol getSymbol(QString sym);
    
-   SemiToneSymbol getSymbol();
-   QString        getSymbolString();
-   double         getFrequency();
-   double         getRemainder();
-   double         getSemitone(); // relative to A440
+   SemiToneSymbol getSymbol()       const;
+   QString        getSymbolString() const;
+   double         getFrequency()    const;
+   double         getRemainder()    const;
+   double         getSemitone()     const; // relative to A440
 
    void setFromSemitone(double st); // relative to A440
    void setFromFrequency(double f); // relative to A440

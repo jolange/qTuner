@@ -21,10 +21,10 @@ public:
    Tuning(QString stringNotes);
    virtual ~Tuning();
 
-   SemiToneSymbol at(int i) const;
+   SemiToneSymbol at(int i)                      const;
    int            count(const SemiToneSymbol st) const;
-   bool           isEmpty() const;
-   int            size() const;
+   bool           isEmpty()                      const;
+   int            size()                         const;
 
    QString getName() const;
 
