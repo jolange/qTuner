@@ -26,18 +26,19 @@ UIMain::UIMain():
    setupTunings();
    slotSetupDrawArea();
 
-   readSettings();
-
-   connect(ui.actionShowGrTuner , SIGNAL(triggered(bool)),
+   connect(ui.actionShowGrTuner , SIGNAL(toggled(bool)),
            ui.drawArea          , SLOT  (setVisible(bool)));
-   connect(ui.actionShowGrTuner , SIGNAL(triggered(bool)),
+   connect(ui.actionShowGrTuner , SIGNAL(toggled(bool)),
            ui.widgetPresets     , SLOT  (setVisible(bool)));
-   connect(ui.actionShowNumTuner, SIGNAL(triggered(bool)),
+   connect(ui.actionShowNumTuner, SIGNAL(toggled(bool)),
            ui.widgetNumTuner    , SLOT  (setVisible(bool)));
    connect(ui.actionAbout, SIGNAL(activated()),
            this          , SLOT  (slotShowAboutDialog()));
    connect(ui.cbPresets, SIGNAL(currentIndexChanged(int)),
            this        , SLOT  (slotSetupDrawArea()));
+
+   // read settings after connections: toggles are recognized
+   readSettings();
 
    m_audioFormat.setSampleRate(32000);
    m_audioFormat.setChannels(1);
@@ -202,15 +203,31 @@ void UIMain::slotShowAboutDialog()
 void UIMain::writeSettings() const
 {
    QSettings settings;
-   settings.setValue("mainwindow/size", size());
-   settings.setValue("mainwindow/pos", pos());
+   settings.setValue("UIMain/size", size());
+   settings.setValue("UIMain/pos", pos());
+   settings.setValue("UIMain/iTuning", ui.cbPresets->currentIndex());
+   settings.setValue("UIMain/bGraphicalTuner", ui.actionShowGrTuner->isChecked());
+   settings.setValue("UIMain/bNumericalTuner", ui.actionShowNumTuner->isChecked());
 }
 
 void UIMain::readSettings()
 {
    QSettings settings;
-   resize(settings.value("mainwindow/size", QSize(950, 400)).toSize());
-   move  (settings.value("mainwindow/pos", QPoint(50, 250)).toPoint());
+   resize(
+      settings.value("UIMain/size", QSize(950, 400)).toSize()
+   );
+   move(
+      settings.value("UIMain/pos", QPoint(50, 250)).toPoint()
+   );
+   ui.cbPresets->setCurrentIndex(
+      settings.value("UIMain/iTuning", 0).toInt()
+   );
+   ui.actionShowGrTuner->setChecked(
+      settings.value("UIMain/bGraphicalTuner", false).toBool()
+   );
+   ui.actionShowNumTuner->setChecked(
+      settings.value("UIMain/bNumericalTuner", false).toBool()
+   );
 }
 
 void UIMain::closeEvent(QCloseEvent *event)
