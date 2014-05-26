@@ -8,6 +8,7 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QPainter>
+#include <QSettings>
 #include <QString>
 
 namespace qTuner{
@@ -24,6 +25,8 @@ UIMain::UIMain():
    ui.widgetNumTuner->setVisible(false);
    setupTunings();
    slotSetupDrawArea();
+
+   readSettings();
 
    connect(ui.actionShowGrTuner , SIGNAL(triggered(bool)),
            ui.drawArea          , SLOT  (setVisible(bool)));
@@ -51,7 +54,6 @@ UIMain::UIMain():
 
    m_FFTDevice ->start();
    m_audioInput->start(m_FFTDevice);
-
 }
 
 UIMain::~UIMain()
@@ -195,6 +197,26 @@ void UIMain::slotShowAboutDialog()
       aboutFile.close();
    }
    QMessageBox::about(this, QString("About qTuner"), text);
+}
+
+void UIMain::writeSettings() const
+{
+   QSettings settings;
+   settings.setValue("mainwindow/size", size());
+   settings.setValue("mainwindow/pos", pos());
+}
+
+void UIMain::readSettings()
+{
+   QSettings settings;
+   resize(settings.value("mainwindow/size", QSize(950, 400)).toSize());
+   move  (settings.value("mainwindow/pos", QPoint(50, 250)).toPoint());
+}
+
+void UIMain::closeEvent(QCloseEvent *event)
+{
+   writeSettings();
+   event->accept();
 }
 
 } // end namespace qTuner

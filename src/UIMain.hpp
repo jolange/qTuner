@@ -5,6 +5,8 @@
 
 #include "FFTDevice.hpp"
 #include "Tuning.hpp"
+
+#include <QCloseEvent>
 #include <QMainWindow>
 
 namespace qTuner { class UIMain; }
@@ -20,6 +22,8 @@ Q_OBJECT
 public:
    UIMain();
    virtual ~UIMain();
+protected:
+   void closeEvent(QCloseEvent *event);
 private:
    Ui::UIMain ui;
 
@@ -37,6 +41,9 @@ private:
 
    void updateDrawArea(double semitone);
    void setupTunings();
+   // read and write geometry settings
+   void writeSettings() const;
+   void readSettings();
 private slots:
    void slotSetupDrawArea();
    void slotUpdateNoteInfo(NoteInfo note);

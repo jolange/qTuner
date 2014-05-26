@@ -6,6 +6,9 @@
 int main(int argc, char* argv[])
 {
    using namespace qTuner;
+   QCoreApplication::setOrganizationName("io.github.johannes-lange");
+   QCoreApplication::setOrganizationDomain("johannes-lange.github.io");
+   QCoreApplication::setApplicationName("qTuner");
    QApplication::setGraphicsSystem("raster");
    QApplication application(argc,argv);
    #ifndef _WIN32

@@ -2,6 +2,7 @@ TEMPLATE = app
 TARGET   = qTuner
 VERSION  = 0.2b
 
+CONFIG += qt debug
 
 # for access in code
 DEFINES += PROJECTVERSION=$$VERSION
