@@ -37,9 +37,6 @@ UIMain::UIMain():
    connect(ui.cbPresets, SIGNAL(currentIndexChanged(int)),
            this        , SLOT  (slotSetupDrawArea()));
 
-   // read settings after connections: toggles are recognized
-   readSettings();
-
    m_audioFormat.setSampleRate(32000);
    m_audioFormat.setChannels(1);
    m_audioFormat.setSampleSize(16);
@@ -50,8 +47,13 @@ UIMain::UIMain():
    m_FFTDevice  = new FFTDevice(m_audioFormat, this);
    m_audioInput = new QAudioInput(m_deviceInfo, m_audioFormat, this);
 
-   connect(m_FFTDevice, SIGNAL(signalNoteUpdated(NoteInfo)),
-           this       , SLOT  (slotUpdateNoteInfo(NoteInfo)));
+   connect(ui.sliderThreshold, SIGNAL(valueChanged(int)),
+           m_FFTDevice       , SLOT  (slotSetSignalThreshold(int)));
+   connect(m_FFTDevice       , SIGNAL(signalNoteUpdated(NoteInfo)),
+           this              , SLOT  (slotUpdateNoteInfo(NoteInfo)));
+
+   // read settings after connections: toggles are recognized
+   readSettings();
 
    m_FFTDevice ->start();
    m_audioInput->start(m_FFTDevice);
@@ -204,10 +206,11 @@ void UIMain::writeSettings() const
 {
    QSettings settings;
    settings.setValue("UIMain/size", size());
-   settings.setValue("UIMain/pos", pos());
-   settings.setValue("UIMain/iTuning", ui.cbPresets->currentIndex());
+   settings.setValue("UIMain/pos",  pos());
+   settings.setValue("UIMain/iTuning",         ui.cbPresets->currentIndex());
    settings.setValue("UIMain/bGraphicalTuner", ui.actionShowGrTuner->isChecked());
    settings.setValue("UIMain/bNumericalTuner", ui.actionShowNumTuner->isChecked());
+   settings.setValue("UIMain/iThreshold",      ui.sliderThreshold->value());
 }
 
 void UIMain::readSettings()
@@ -227,6 +230,9 @@ void UIMain::readSettings()
    );
    ui.actionShowNumTuner->setChecked(
       settings.value("UIMain/bNumericalTuner", false).toBool()
+   );
+   ui.sliderThreshold->setValue(
+      settings.value("UIMain/iThreshold", 50).toInt()
    );
 }
 

@@ -12,11 +12,10 @@ namespace qTuner{
 FFTDevice::FFTDevice(const QAudioFormat &aFormat, QObject *parent):
    QIODevice(parent),
    m_audioFormat(aFormat),
-   m_iResolutionFactor(20)
+   m_iResolutionFactor(20),
+   m_iSignalThreshold(0.0) // set by user
 {
    m_iSampleBytes = m_audioFormat.sampleSize() / 8;
-   // TODO user-setting
-   m_iSignalThreshold = 8.0e2; // for average absolute amplitude
 }
 
 FFTDevice::~FFTDevice(){}
@@ -74,6 +73,7 @@ bool FFTDevice::fft(qint16 data[], double spectr[]) const
    if (avg/m_iSamples < m_iSignalThreshold){
       // low signal, don't evaluate
       delete[] cData;
+      //std::cout << "- " << avg/m_iSamples << "!"<< std::endl;
       return false;
    }
    // add zeros
@@ -175,6 +175,14 @@ void FFTDevice::setResolutionFactor(int res)
       res = 20;
 
    m_iResolutionFactor = res;
+}
+
+void FFTDevice::slotSetSignalThreshold(int value)
+{
+   // for average absolute amplitude
+   double v = value/100.0;
+   m_iSignalThreshold = pow(10,v*5);
+   std::cout << value << " " << m_iSignalThreshold << std::endl; // TODO
 }
 
 } // end namespace qTuner

@@ -1,5 +1,5 @@
 #![icon](./resources/qTuner48x48.png)  qTuner
-[Qt4](https://qt-project.org/) based Guitar Tuner
+[Qt4](https://qt-project.org/) based Guitar Tuner, using your computer's microphone
 
 &copy; 2014 Johannes Lange,
 for **License** see [LICENSE file](LICENSE)
