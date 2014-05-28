@@ -41,9 +41,10 @@ private:
    int                m_iSamples;
    int                m_iResolutionFactor;
    int                m_iSpectrumSize; // legth of the array the FFT is performed on
+   int                m_iSignalThreshold; // signal only valid if avg absolute amplitude 
    NoteInfo           m_note;
 
-   void fft(qint16               data[], double spectr[]) const;
+   bool fft(qint16               data[], double spectr[]) const;
    void fft(std::complex<double> data[], int n)           const;
    void calcSpectrumSize();
    int  maxPosition(double       data[], int n)           const;

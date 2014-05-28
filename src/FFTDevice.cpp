@@ -15,6 +15,8 @@ FFTDevice::FFTDevice(const QAudioFormat &aFormat, QObject *parent):
    m_iResolutionFactor(20)
 {
    m_iSampleBytes = m_audioFormat.sampleSize() / 8;
+   // TODO user-setting
+   m_iSignalThreshold = 8.0e2; // for average absolute amplitude
 }
 
 FFTDevice::~FFTDevice(){}
@@ -42,13 +44,14 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
 
    calcSpectrumSize();
    double* spectrum = new double[m_iSpectrumSize];
-   fft(values, spectrum);
-   int maxPos = maxPosition(spectrum, m_iSpectrumSize);
-   if (maxPos != -1){
-      double f = frequencyAt(maxPos);
-      m_note.setFromFrequency(f);
-   }else{
-      m_note.setSymbol(err);
+   bool signalValid = fft(values, spectrum);
+   m_note.setSymbol(err); // assume invalid signal, change otherwise
+   if (signalValid){
+      int maxPos = maxPosition(spectrum, m_iSpectrumSize);
+      if (maxPos != -1){
+         double f = frequencyAt(maxPos);
+         m_note.setFromFrequency(f);
+      }
    }
    emit signalNoteUpdated(m_note);
 
@@ -57,23 +60,33 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
    return len;
 }
 
-void FFTDevice::fft(qint16 data[], double spectr[]) const
+/*! \return true if signal valid, false if not */
+bool FFTDevice::fft(qint16 data[], double spectr[]) const
 {
    // create complex values for fft
    // and fill with zeros for higher precision
    std::complex<double>* cData = new std::complex<double>[m_iSpectrumSize];
-   for (int i=0; i<m_iSamples; i++)
+   double avg = 0; // average absolute amplitude
+   for (int i=0; i<m_iSamples; i++){
+      avg += abs(data[i]);
       cData[i] = std::complex<double>((double)data[i],0.0);
+   }
+   if (avg/m_iSamples < m_iSignalThreshold){
+      // low signal, don't evaluate
+      delete[] cData;
+      return false;
+   }
    // add zeros
    for (int i=m_iSamples; i<m_iSpectrumSize; i++)
       cData[i] = std::complex<double>(0.0,0.0);
 
    fft(cData,m_iSpectrumSize);
-   // put back only first n values
+   // put back absolute values
    for (int i=0; i<m_iSpectrumSize; i++)
       spectr[i] = std::abs<double>(cData[i]);
 
    delete[] cData;
+   return true;
 }
 
 void FFTDevice::fft(std::complex<double> data[], int n) const
@@ -134,7 +147,7 @@ void FFTDevice::dump(double data[], int n)
 int FFTDevice::maxPosition(double data[], int n) const
 {
    // TODO much hardcoding here...
-   int threshold  = 30; // times avg
+   //int m_iThreshold = 30;
    int lowerBound = 0.003*n;
    int upperBound = 0.1*n;
    double avg = 0;
@@ -145,10 +158,8 @@ int FFTDevice::maxPosition(double data[], int n) const
          iMax = i;
    }
    avg/=(upperBound-lowerBound);
-   if (data[iMax] > threshold*avg)
-      return iMax;
-   //else
-      return -1;
+   //if (data[iMax] < m_iThreshold*avg) return -1;
+   /* else */                         return iMax;
 }
 
 double FFTDevice::frequencyAt(int pos) const
