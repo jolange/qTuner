@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>950</width>
-    <height>400</height>
+    <height>450</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>850</width>
-    <height>400</height>
+    <height>450</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -39,10 +39,19 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QWidget" name="settingsWidget" native="true">
+       <widget class="QFrame" name="settingsFrame">
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
         <layout class="QHBoxLayout" name="horizontalLayout_6">
          <item>
           <widget class="QLabel" name="label_2">
+           <property name="toolTip">
+            <string>Define evaluation threshold.</string>
+           </property>
            <property name="text">
             <string>Signal Threshold:</string>
            </property>
@@ -61,6 +70,9 @@
              <width>200</width>
              <height>0</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>Define evaluation threshold.</string>
            </property>
            <property name="sliderPosition">
             <number>30</number>

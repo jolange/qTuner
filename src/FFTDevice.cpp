@@ -146,18 +146,17 @@ void FFTDevice::dump(double data[], int n)
  */
 int FFTDevice::maxPosition(double data[], int n) const
 {
-   // TODO much hardcoding here...
    //int m_iThreshold = 30;
    int lowerBound = 0.003*n;
    int upperBound = 0.1*n;
-   double avg = 0;
+   //double avg = 0;
    int iMax = 0;
    for (int i=lowerBound; i<upperBound; i++){
-      avg += data[i];
+      //avg += data[i];
       if (data[i] > data[iMax])
          iMax = i;
    }
-   avg/=(upperBound-lowerBound);
+   //avg/=(upperBound-lowerBound);
    //if (data[iMax] < m_iThreshold*avg) return -1;
    /* else */                         return iMax;
 }
@@ -182,7 +181,7 @@ void FFTDevice::slotSetSignalThreshold(int value)
    // for average absolute amplitude
    double v = value/100.0;
    m_iSignalThreshold = pow(10,v*5);
-   std::cout << value << " " << m_iSignalThreshold << std::endl; // TODO
+   emit signalStatusMessage(QString::number(value)+": "+QString::number(m_iSignalThreshold),3000);
 }
 
 } // end namespace qTuner

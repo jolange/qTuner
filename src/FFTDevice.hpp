@@ -58,6 +58,7 @@ public slots:
 
 signals:
    void signalNoteUpdated(NoteInfo);
+   void signalStatusMessage(QString,int);
 };
 
 #endif /* FFTDEVICE_HPP_ */

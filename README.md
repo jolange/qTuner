@@ -20,5 +20,5 @@ $ ./bin/qTuner</pre></code>
 $ nmake release</pre></code>
 
 ##### [Release](https://github.com/johannes-lange/qTuner/releases) notes:
-- development Version 0.2b: tuning presets, saving settings, [evaluation threshold]
+- development Version 0.2b: tuning presets, saving settings, evaluation threshold
 - 2014-04-03 Version 0.1: first release

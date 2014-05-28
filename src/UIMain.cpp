@@ -51,6 +51,8 @@ UIMain::UIMain():
            m_FFTDevice       , SLOT  (slotSetSignalThreshold(int)));
    connect(m_FFTDevice       , SIGNAL(signalNoteUpdated(NoteInfo)),
            this              , SLOT  (slotUpdateNoteInfo(NoteInfo)));
+   connect(m_FFTDevice       , SIGNAL(signalStatusMessage(QString,int)),
+           statusBar()       , SLOT  (showMessage(QString,int)));
 
    // read settings after connections: toggles are recognized
    readSettings();
@@ -110,7 +112,6 @@ void UIMain::slotSetupDrawArea()
          }
       }
       // draw double occurrences
-      // TODO just one column if <= 3?
       painter.setFont(QFont("Arial", 10, QFont::Bold));
       for (int iPos = 0; iPos < drawLater.size(); iPos++){
          QStringList& strings = drawLater[iPos];
@@ -226,13 +227,13 @@ void UIMain::readSettings()
       settings.value("UIMain/iTuning", 0).toInt()
    );
    ui.actionShowGrTuner->setChecked(
-      settings.value("UIMain/bGraphicalTuner", false).toBool()
+      settings.value("UIMain/bGraphicalTuner", true).toBool()
    );
    ui.actionShowNumTuner->setChecked(
       settings.value("UIMain/bNumericalTuner", false).toBool()
    );
    ui.sliderThreshold->setValue(
-      settings.value("UIMain/iThreshold", 50).toInt()
+      settings.value("UIMain/iThreshold", 60).toInt()
    );
 }
 
