@@ -181,7 +181,10 @@ void FFTDevice::slotSetSignalThreshold(int value)
    // for average absolute amplitude
    double v = value/100.0;
    m_iSignalThreshold = pow(10,v*5);
-   emit signalStatusMessage(QString::number(value)+": "+QString::number(m_iSignalThreshold),3000);
+   emit signalStatusMessage(
+      "Threshold set to "+QString::number(value)
+      +": "+QString::number(m_iSignalThreshold),3000
+   );
 }
 
 } // end namespace qTuner
