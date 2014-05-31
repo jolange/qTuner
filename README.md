@@ -9,7 +9,7 @@ for **License** see [LICENSE file](LICENSE)
 ![Screenshot](https://raw.githubusercontent.com/johannes-lange/qTuner/gh-pages/images/screenshots/linux.png)
 
 #### Getting qTuner
-- for Windows you can just get a precompiled [binary](https://github.com/johannes-lange/qTuner/releases/download/v0.2/qTuner-bin.zip)
+- for Windows you can just get a precompiled [binary](https://github.com/johannes-lange/qTuner/releases/download/v0.2/qTuner.exe)
   (you might have to install the [MSVC++ libraries](http://www.microsoft.com/en-gb/download/details.aspx?id=5555))
 - or [build](#building) manually for any operating system
 
