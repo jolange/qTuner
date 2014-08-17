@@ -70,23 +70,7 @@ double NoteInfo::semitone(double freq)
 
 QString NoteInfo::getSymbolString() const 
 {
-   QString symbol;
-   switch (m_symbol){
-      case A : symbol = "A" ; break;
-      case Bb: symbol = "Bb"; break;
-      case B : symbol = "B" ; break;
-      case C : symbol = "C" ; break;
-      case Db: symbol = "Db"; break;
-      case D : symbol = "D" ; break;
-      case Eb: symbol = "Eb"; break;
-      case E : symbol = "E" ; break;
-      case F : symbol = "F" ; break;
-      case Gb: symbol = "Gb"; break;
-      case G : symbol = "G" ; break;
-      case Ab: symbol = "Ab"; break;
-      default: symbol = "?" ; break;
-   }
-   return symbol;
+   return getSymbolString(m_symbol);
 }
 
 QString NoteInfo::getSymbolString(SemiToneSymbol sym)

@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET   = qTuner
-VERSION  = 0.2
+VERSION  = 0.3b
 
 CONFIG += qt # debug
 
