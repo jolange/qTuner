@@ -112,16 +112,24 @@ void UIMain::slotSetupDrawArea()
          }
       }
       // draw double occurrences
-      painter.setFont(QFont("Arial", 10, QFont::Bold));
       for (int iPos = 0; iPos < drawLater.size(); iPos++){
          QStringList& strings = drawLater[iPos];
          int iStrings = strings.size();
-         for (int iStr = 0; iStr < iStrings; iStr++){
-            pos = (m_sizeDrawArea.width()/12.0)*(iPos+.5)-8;
-            if (iStr%2 == 1) // column alignment
-               pos += 10;
-            double height = imgNoteMarkHeight-1 - ((iStrings-1)/2-iStr/2) * 16;
-            painter.drawText(pos,height,strings[iStr]);
+         if (iStrings <= 3){ // one column is enough
+            for (int iStr = 0; iStr < iStrings; iStr++){
+               pos = (m_sizeDrawArea.width()/12.0)*(iPos+.5)-8;
+               double height = imgNoteMarkHeight-1 - ((iStrings-1)-iStr) * 20;
+               painter.drawText(pos,height,strings[iStr]);
+            }
+         }else{ // draw two columns
+            painter.setFont(QFont("Arial", 10, QFont::Bold));
+            for (int iStr = 0; iStr < iStrings; iStr++){
+               pos = (m_sizeDrawArea.width()/12.0)*(iPos+.5)-8;
+               if (iStr%2 == 1) // column alignment
+                  pos += 10;
+               double height = imgNoteMarkHeight-1 - ((iStrings-1)/2-iStr/2) * 16;
+               painter.drawText(pos,height,strings[iStr]);
+            }
          }
       }
    }

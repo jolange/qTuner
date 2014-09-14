@@ -40,7 +40,7 @@ private:
    int                m_iSampleBytes;
    int                m_iSamples;
    int                m_iResolutionFactor;
-   int                m_iSpectrumSize;    // legth of the array the FFT is performed on
+   int                m_iSpectrumSize;    // length of the array the FFT is performed on
    int                m_iSignalThreshold; // signal only valid if avg absolute amplitude 
    NoteInfo           m_note;
 
