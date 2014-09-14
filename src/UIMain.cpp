@@ -231,9 +231,9 @@ void UIMain::readSettings()
    move(
       settings.value("UIMain/pos", QPoint(50, 250)).toPoint()
    );
-   ui.cbPresets->setCurrentIndex(
-      settings.value("UIMain/iTuning", 0).toInt()
-   );
+   int iPreset = settings.value("UIMain/iTuning", 0).toInt();
+   if (iPreset >= ui.cbPresets->count()) iPreset = 0;
+   ui.cbPresets->setCurrentIndex(iPreset);
    ui.actionShowGrTuner->setChecked(
       settings.value("UIMain/bGraphicalTuner", true).toBool()
    );
