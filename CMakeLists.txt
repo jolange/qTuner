@@ -1,9 +1,16 @@
 PROJECT(qTuner)
+set(PROJECTVERSION 0.3b)
+
 FIND_PACKAGE(Qt4 COMPONENTS QTCORE QTGUI QTMULTIMEDIA)
 
 cmake_minimum_required(VERSION 3.0)
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+
+configure_file (
+  "src/config.hpp.in"
+  "${PROJECT_BINARY_DIR}/config.hpp"
+)
 
 SET(SOURCES
    src/main.cpp
