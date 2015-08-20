@@ -1,15 +1,15 @@
 #![icon](./resources/qTuner48x48.png)  qTuner
 [Qt4](https://qt-project.org/) based Guitar Tuner, using your computer's microphone
 
-Homepage: [http://johannes-lange.github.io/qTuner/](http://johannes-lange.github.io/qTuner/)
+Homepage: [http://jolange.github.io/#qTuner](http://jolange.github.io/#qTuner)
 
 &copy; 2014 Johannes Lange,
 for **License** see [LICENSE file](LICENSE)
 
-![Screenshot](https://raw.githubusercontent.com/johannes-lange/qTuner/gh-pages/images/screenshots/linux.png)
+![Screenshot](https://raw.githubusercontent.com/jolange/qTuner/gh-pages/images/screenshots/linux.png)
 
 #### Getting qTuner
-- for Windows you can just get a precompiled [binary](https://github.com/johannes-lange/qTuner/releases/download/v0.2/qTuner.exe)
+- for Windows you can just get a precompiled [binary](https://github.com/jolange/qTuner/releases/download/v0.2/qTuner.exe)
   (you might have to install the [MSVC++ libraries](http://www.microsoft.com/en-gb/download/details.aspx?id=5555))
 - or [build](#building) manually for any operating system
 
@@ -24,7 +24,7 @@ $ ./bin/qTuner</pre></code>
 $ nmake release</pre></code>
 if you want a statically linked executable, you'll need a static Qt build
 
-##### [Release](https://github.com/johannes-lange/qTuner/releases) notes:
+##### [Release](https://github.com/jolange/qTuner/releases) notes:
 - development Version 0.3b: ukulele presets
 - 2014-05-31 Version 0.2: tuning presets, saving settings, evaluation threshold
 - 2014-04-03 Version 0.1: first release
