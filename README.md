@@ -25,6 +25,6 @@ $ nmake release</pre></code>
 if you want a statically linked executable, you'll need a static Qt build
 
 ##### [Release](https://github.com/johannes-lange/qTuner/releases) notes:
-- development Version 0.3b:
+- development Version 0.3b: ukulele presets
 - 2014-05-31 Version 0.2: tuning presets, saving settings, evaluation threshold
 - 2014-04-03 Version 0.1: first release
