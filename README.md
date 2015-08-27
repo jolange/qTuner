@@ -6,7 +6,7 @@ Homepage: [http://jolange.github.io/#qTuner](http://jolange.github.io/#qTuner)
 &copy; 2014 Johannes Lange,
 for **License** see [LICENSE file](LICENSE)
 
-![Screenshot](https://raw.githubusercontent.com/jolange/qTuner/gh-pages/images/screenshots/linux.png)
+![Screenshot](http://jolange.github.io/img/screenshots/linux.png)
 
 #### Getting qTuner
 - for Windows you can just get a precompiled [binary](https://github.com/jolange/qTuner/releases/download/v0.2/qTuner.exe)
