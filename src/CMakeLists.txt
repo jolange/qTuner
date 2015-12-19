@@ -43,3 +43,5 @@ target_link_libraries(qTuner
   ${QT_LIBRARIES}
   )
 
+INSTALL(TARGETS qTuner
+  RUNTIME DESTINATION bin)
