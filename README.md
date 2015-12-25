@@ -22,12 +22,12 @@ for **License** see [LICENSE file](LICENSE)
         # or cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/install_location
         make
         make install
-- **Windows**: CMake-build not yet tested in Winodows. The qmake version can be built in Visual Studio Command prompt
+- **Windows**: CMake-build not yet tested in Windows. The qmake version can be built in Visual Studio Command prompt
 <pre><code>$ qmake
 $ nmake release</pre></code>
 if you want a statically linked executable, you'll need a static Qt build
 
 ##### [Release](https://github.com/jolange/qTuner/releases) notes:
-- development Version 0.3b: ukulele presets
+- development Version 0.3b: ukulele presets, cmake build
 - 2014-05-31 Version 0.2: tuning presets, saving settings, evaluation threshold
 - 2014-04-03 Version 0.1: first release
