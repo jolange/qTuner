@@ -14,12 +14,15 @@ for **License** see [LICENSE file](LICENSE)
 - or [build](#building) manually for any operating system
 
 #### Building
-- **Prerequisites**: [Qt4](https://qt-project.org/)
-- **Linux**: In the base-path:
-<pre><code>$ qmake
-$ make
-$ ./bin/qTuner</pre></code>
-- **Windows**: in Visual Studio Command prompt
+- **Prerequisites**: [Qt4](https://qt-project.org/), CMake>=2.8
+- **Linux**:
+
+        mkdir build; cd build
+        cmake ..
+        # or cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/install_location
+        make
+        make install
+- **Windows**: CMake-build not yet tested in Winodows. The qmake version can be built in Visual Studio Command prompt
 <pre><code>$ qmake
 $ nmake release</pre></code>
 if you want a statically linked executable, you'll need a static Qt build

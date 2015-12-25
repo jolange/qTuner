@@ -3,6 +3,7 @@
 
 #include "NoteInfo.hpp"
 #include "Tuning.hpp"
+#include "config.hpp"
 
 #include <QDebug>
 #include <QFile>
@@ -169,7 +170,7 @@ void UIMain::setupTunings()
       tuningsFile.close();
    }
    for (int i = 0; i < m_lTuningPresets.size(); i++){
-      ui.cbPresets->addItem(icon,m_lTuningPresets[i].getName());   
+      ui.cbPresets->addItem(icon,m_lTuningPresets[i].getName());
    }
 }
 
@@ -190,7 +191,7 @@ void UIMain::slotUpdateNoteInfo(NoteInfo note)
       updateDrawArea(-100); // move out of sight
       ui.labelFreq     ->setText(" (? Hz)");
       ui.labelNote     ->setText("?");
-      ui.labelRemainder->setText("+0.0");      
+      ui.labelRemainder->setText("+0.0");
    }
 }
 
