@@ -316,9 +316,6 @@
    <property name="shortcut">
     <string>Ctrl+O</string>
    </property>
-   <property name="softKeyRole">
-    <enum>QAction::NoSoftKey</enum>
-   </property>
   </action>
   <action name="actionSave">
    <property name="text">
@@ -384,7 +381,7 @@
  <connections>
   <connection>
    <sender>actionQuit</sender>
-   <signal>activated()</signal>
+   <signal>triggered()</signal>
    <receiver>UIMain</receiver>
    <slot>close()</slot>
    <hints>

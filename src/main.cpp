@@ -1,5 +1,5 @@
 #include <QtGui/QApplication>
-#include <QtGui/QGtkStyle>
+#include <QStyleFactory>
 
 #include "UIMain.hpp"
 
@@ -9,10 +9,9 @@ int main(int argc, char* argv[])
    QCoreApplication::setOrganizationName("io.github.johannes-lange");
    QCoreApplication::setOrganizationDomain("johannes-lange.github.io");
    QCoreApplication::setApplicationName("qTuner");
-   QApplication::setGraphicsSystem("raster");
    QApplication application(argc,argv);
    #ifndef _WIN32
-   application.setStyle(new QGtkStyle());
+   application.setStyle(QStyleFactory::create("GTK+"));
    #endif // _WIN32
    UIMain ui;
    ui.show();

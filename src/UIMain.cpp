@@ -33,13 +33,13 @@ UIMain::UIMain():
            ui.widgetPresets     , SLOT  (setVisible(bool)));
    connect(ui.actionShowNumTuner, SIGNAL(toggled(bool)),
            ui.widgetNumTuner    , SLOT  (setVisible(bool)));
-   connect(ui.actionAbout, SIGNAL(activated()),
+   connect(ui.actionAbout, SIGNAL(triggered()),
            this          , SLOT  (slotShowAboutDialog()));
    connect(ui.cbPresets, SIGNAL(currentIndexChanged(int)),
            this        , SLOT  (slotSetupDrawArea()));
 
    m_audioFormat.setSampleRate(32000);
-   m_audioFormat.setChannels(1);
+   m_audioFormat.setChannelCount(1);
    m_audioFormat.setSampleSize(16);
    m_audioFormat.setSampleType(QAudioFormat::SignedInt);
    m_audioFormat.setByteOrder(QAudioFormat::LittleEndian);

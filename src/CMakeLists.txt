@@ -26,12 +26,9 @@ set(RESOURCES
   ${CMAKE_SOURCE_DIR}/resources/qTuner.qrc
   )
 
-include(${QT_USE_FILE})
-qt4_wrap_cpp     (HEADERS_MOC   ${QT_HEADERS})
-qt4_wrap_ui      (FORMS_HEADERS ${FORMS})
-qt4_add_resources(RESOURCES_RCC ${RESOURCES})
-
-add_definitions(${QT_DEFINITIONS})
+qt5_wrap_cpp     (HEADERS_MOC   ${QT_HEADERS})
+qt5_wrap_ui      (FORMS_HEADERS ${FORMS})
+qt5_add_resources(RESOURCES_RCC ${RESOURCES})
 
 add_executable(qTuner
   ${SOURCES}
@@ -39,8 +36,10 @@ add_executable(qTuner
   ${FORMS_HEADERS}
   ${RESOURCES_RCC}
   )
+
 target_link_libraries(qTuner
-  ${QT_LIBRARIES}
+  Qt5::Widgets
+  Qt5::Multimedia
   )
 
 INSTALL(TARGETS qTuner
