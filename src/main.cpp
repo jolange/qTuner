@@ -5,7 +5,6 @@
 
 int main(int argc, char* argv[])
 {
-   using namespace qTuner;
    QCoreApplication::setOrganizationName("io.github.jolange");
    QCoreApplication::setOrganizationDomain("jolange.github.io");
    QCoreApplication::setApplicationName("qTuner");
@@ -13,7 +12,7 @@ int main(int argc, char* argv[])
    #ifndef _WIN32
    application.setStyle(QStyleFactory::create("GTK+"));
    #endif // _WIN32
-   UIMain ui;
+   qTuner::UIMain ui;
    ui.show();
    return application.exec();
 }

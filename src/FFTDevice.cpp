@@ -43,13 +43,12 @@ qint64 FFTDevice::writeData(const char *data, qint64 len)
 
    calcSpectrumSize();
    double* spectrum = new double[m_iSpectrumSize];
-   bool signalValid = fft(values, spectrum);
+   bool const signalValid = fft(values, spectrum);
    m_note.setSymbol(err); // assume invalid signal, change otherwise
    if (signalValid){
-      int maxPos = maxPosition(spectrum, m_iSpectrumSize);
+      int const maxPos = maxPosition(spectrum, m_iSpectrumSize);
       if (maxPos != -1){
-         double f = frequencyAt(maxPos);
-         m_note.setFromFrequency(f);
+         m_note.setFromFrequency(frequencyAt(maxPos));
       }
    }
    emit signalNoteUpdated(m_note);
@@ -147,8 +146,8 @@ void FFTDevice::dump(double data[], int n)
 int FFTDevice::maxPosition(double data[], int n) const
 {
    //int m_iThreshold = 30;
-   int lowerBound = 0.003*n;
-   int upperBound = 0.1*n;
+   int const lowerBound = 0.003*n;
+   int const upperBound = 0.1*n;
    //double avg = 0;
    int iMax = 0;
    for (int i=lowerBound; i<upperBound; i++){
@@ -179,7 +178,7 @@ void FFTDevice::setResolutionFactor(int res)
 void FFTDevice::slotSetSignalThreshold(int value)
 {
    // for average absolute amplitude
-   double v = value/100.0;
+   double const v = value/100.0;
    m_iSignalThreshold = pow(10,v*5);
    emit signalStatusMessage(
       "Threshold set to "+QString::number(value)

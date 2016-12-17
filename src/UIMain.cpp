@@ -70,7 +70,7 @@ UIMain::~UIMain()
 
 void UIMain::slotSetupDrawArea()
 {
-   int imgNoteMarkHeight = 100;
+   int const imgNoteMarkHeight = 100;
    m_imgNoteMark = QPixmap(20,imgNoteMarkHeight);
    m_imgNoteMark.fill(QApplication::palette().color(QPalette::WindowText));
    m_imgArrow.load(":/img/arrow.png");
@@ -147,7 +147,7 @@ void UIMain::updateDrawArea(double semitone)
    imgTotal.fill(Qt::transparent);
    QPainter painter(&imgTotal);
    painter.drawPixmap(0,0,m_imgOctave);
-   double pos = fmod(semitone+.5,12.0) * m_sizeDrawArea.width()/12.0;
+   double const pos = fmod(semitone+.5,12.0) * m_sizeDrawArea.width()/12.0;
    painter.drawPixmap(pos-m_imgArrow.width()/2,0,m_imgArrow);
    painter.end();
    ui.drawArea->setPixmap(imgTotal);
@@ -155,7 +155,7 @@ void UIMain::updateDrawArea(double semitone)
 
 void UIMain::setupTunings()
 {
-   QIcon icon(":/img/qTuner.png");
+   QIcon const icon(":/img/qTuner.png");
    // no tuning preset by default
    m_lTuningPresets.append(Tuning(";None"));
    // read presets from file
@@ -178,12 +178,12 @@ void UIMain::slotUpdateNoteInfo(NoteInfo note)
 {
    if (note.getSymbol()!=err){
       updateDrawArea(note.getSemitone());
-      double f = note.getFrequency();
-      QString freq = QString(" (%1 Hz)")
+      double const f = note.getFrequency();
+      QString const freq = QString(" (%1 Hz)")
                      .arg(f == 0 ? "?" : QString::number(f,'f',0));
       ui.labelFreq     ->setText(freq);
       ui.labelNote     ->setText(note.getSymbolString()+" ");
-      double rem = note.getRemainder();
+      double const rem = note.getRemainder();
       QString sRem = QString::number(rem,'f',2);
       if (rem>=0) sRem.prepend("+");
       ui.labelRemainder->setText(sRem);

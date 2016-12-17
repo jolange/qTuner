@@ -21,13 +21,13 @@ void Tuning::extractFromString()
 {
    // TODO catch errors here?
    clear();
-   QStringList slNotesAndName =  m_sStringNotes.split(";");
+   QStringList const slNotesAndName =  m_sStringNotes.split(";");
    if (slNotesAndName[0].isEmpty()){
       m_sName = slNotesAndName[1];
       return;
    }
    m_sName = "[" + slNotesAndName[0] +"] " + slNotesAndName[1];
-   QStringList slNotes = slNotesAndName[0].split(",");
+   QStringList const slNotes = slNotesAndName[0].split(",");
    SemiToneSymbol st;
    for (int i=0; i<slNotes.size(); i++){
       st=NoteInfo::getSymbol(slNotes[i]);

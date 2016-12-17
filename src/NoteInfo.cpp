@@ -24,7 +24,7 @@ NoteInfo::~NoteInfo(){}
 void NoteInfo::setFromSemitone(double st)
 {
    // round
-   int stR = round(st);
+   int const stR = round(st);
    m_remainder = st - stR;
    // unsigned modulo with right rounding
    m_semitone  = ((stR % 12 + 12) % 12);
